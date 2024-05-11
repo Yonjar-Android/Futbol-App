@@ -15,7 +15,7 @@ interface LeagueService {
     @GET("leagues/{id}")
     suspend fun getLeagueById(@Path("id") id:Int):OneLeagueResponse
 
-    @GET("seasons/19686")
+    @GET("standings/seasons/19686")
     suspend fun getStandingsBySeasonId():StandingResponse
 
     @GET("teams/{id}")

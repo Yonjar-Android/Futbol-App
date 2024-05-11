@@ -1,6 +1,6 @@
 package com.yonjar.futbolapp.leagues.ui.leagueMainScreen
 
-import com.yonjar.futbolapp.leagues.data.models.LeagueModel
+import com.yonjar.futbolapp.leagues.domain.models.LeagueModel
 
 sealed class LeaguesState {
     data object Loading: LeaguesState()
