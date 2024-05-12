@@ -33,24 +33,26 @@ class Repository @Inject constructor(private val leagueService: LeagueService): 
     override suspend fun getStandingBySeasonId(id:Int):List<StandingModel>?{
         runCatching {
             leagueService.getStandingsBySeasonId()
-        }.onSuccess { league ->
-            val teamStandings = mutableListOf<StandingModel>()
-            val addedParticipantIds = HashSet<Int>() // Conjunto para mantener un seguimiento de los participantId ya agregados
-            league.data.mapNotNull { standing ->
-                val team = getTeamById(standing.participantId)
-                team?.name?.let { teamName ->
-                    team.teamImage?.let { teamImage ->
-                        standing.toStandingModel(teamName, teamImage)
+        }.onSuccess { standings ->
+
+            val teams = mutableListOf<StandingModel>()
+            val teamsAdded = mutableListOf<Int>()
+
+
+            for (s in standings.data){
+                if(s.participantId !in teamsAdded){
+                    teamsAdded.add(s.participantId)
+
+                    val teamCall = getTeamById(s.participantId)
+
+                    if (teamCall != null){
+                        teams.add(s.toStandingModel(teamCall.name ?: "", teamCall.teamImage ?: ""))
                     }
                 }
-            }.forEach { standingModel ->
-                // Verificar si el participantId ya está agregado antes de agregarlo a teamStandings
-                if (standingModel.participantId !in addedParticipantIds) {
-                    teamStandings.add(standingModel)
-                    standingModel.participantId?.let { addedParticipantIds.add(it) } // Agregar el participantId al conjunto
-                }
+
             }
-            return teamStandings
+            return teams
+
         }
         .onFailure { Log.i("Error Message","Error: ${it.message}") }
         return null

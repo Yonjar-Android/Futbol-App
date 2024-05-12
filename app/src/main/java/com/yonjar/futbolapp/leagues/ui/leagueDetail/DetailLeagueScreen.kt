@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -20,8 +21,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.yonjar.futbolapp.leagues.domain.models.StandingModel
 import androidx.compose.foundation.lazy.items
-import androidx.compose.ui.text.style.TextAlign
-
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun DetailLeagueScreen(leagueId: Int, detailLeagueViewModel: DetailLeagueViewModel) {
@@ -70,5 +70,6 @@ Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVert
 
     AsyncImage(model = teamStanding.teamImage, contentDescription = teamStanding.name)
     Text(text = teamStanding.name ?: "", fontSize = 15.sp)
+    Text(text = teamStanding.points.toString(), fontSize = 15.sp, modifier = Modifier.padding(horizontal = 5.dp))
 }
 }
