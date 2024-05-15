@@ -13,5 +13,6 @@ data class StandingModel(
     val position: Int?,
     val result: String?,
     val points: Int?,
-    val participant:TeamModel
+    val participant:TeamModel,
+    val stage:StageModel?
 )

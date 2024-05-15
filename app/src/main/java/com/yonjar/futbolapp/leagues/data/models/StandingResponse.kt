@@ -21,7 +21,8 @@ data class StandingModelResponse(
     @SerializedName("position") val position: Int,
     @SerializedName("result") val result: String,
     @SerializedName("points") val points: Int,
-    @SerializedName("participant") val team:TeamModelResponse
+    @SerializedName("participant") val team:TeamModelResponse,
+    @SerializedName("stage") val stage:StageModelResponse?
 ){
     fun toStandingModel() = StandingModel(
         id = id,
@@ -36,7 +37,7 @@ data class StandingModelResponse(
         position = position,
         result = result,
         points = points,
-        participant = team.toTeamModel()
-
+        participant = team.toTeamModel(),
+        stage = stage?.toStageModel()
     )
 }

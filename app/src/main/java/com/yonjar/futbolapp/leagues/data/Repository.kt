@@ -50,7 +50,9 @@ class Repository @Inject constructor(private val leagueService: LeagueService): 
         }.onSuccess { standings ->
             val newList = mutableListOf<StandingModel>()
             for (s in standings.data){
-                newList.add(s.toStandingModel())
+                if(s.stage?.name == "Regular Season" || s.stage?.name == "1st Phase"){
+                    newList.add(s.toStandingModel())
+                }
             }
             return newList
         }

@@ -14,12 +14,18 @@ interface LeagueService {
     suspend fun getLeagues(@Query("include") include: String = "currentSeason"): LeagueResponse
 
     @GET("leagues/{id}")
-    suspend fun getLeagueById(@Path("id") id:Int, @Query("include") include: String = "currentSeason"):OneLeagueResponse
+    suspend fun getLeagueById(
+        @Path("id") id: Int,
+        @Query("include") include: String = "currentSeason"
+    ): OneLeagueResponse
 
-    @GET("standings/seasons/{id}?include=participant")
-    suspend fun getStandingsBySeasonId(@Path("id") id:Int?):StandingResponse
+    @GET("standings/seasons/{id}?")
+    suspend fun getStandingsBySeasonId(
+        @Path("id") id: Int?,
+        @Query("include") include: String = "participant;stage"
+    ): StandingResponse
 
     @GET("teams/{id}")
-    suspend fun getTeamById(@Path("id") id:Int): TeamResponse
+    suspend fun getTeamById(@Path("id") id: Int): TeamResponse
 
 }

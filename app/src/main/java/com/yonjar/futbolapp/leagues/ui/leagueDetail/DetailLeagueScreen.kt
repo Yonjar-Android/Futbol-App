@@ -31,13 +31,29 @@ import coil.compose.AsyncImage
 import com.yonjar.futbolapp.leagues.domain.models.StandingModel
 
 @Composable
-fun DetailLeagueScreen(leagueId: Int, detailLeagueViewModel: DetailLeagueViewModel, navController: NavController) {
+fun DetailLeagueScreen(
+    leagueId: Int,
+    detailLeagueViewModel: DetailLeagueViewModel,
+    navController: NavController
+) {
     val state = detailLeagueViewModel.state.collectAsState()
     val context = LocalContext.current
 
     detailLeagueViewModel.chargeLeague(leagueId)
 
-    Box(modifier = Modifier.fillMaxSize().background(Color(0xFFDEDEDE)), contentAlignment = Alignment.Center) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFDEDEDE)),
+        contentAlignment = Alignment.Center
+    ) {
+
+        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "arrowBack",
+            modifier = Modifier.align(Alignment.TopStart).size(30.dp)
+                .clickable {
+                    navController.popBackStack()
+                })
+
         when (val currentState = state.value) {
             is DetailLeagueState.Error -> ErrorFun(currentState, context)
             DetailLeagueState.Loading -> LoadingFun()
@@ -50,30 +66,25 @@ fun DetailLeagueScreen(leagueId: Int, detailLeagueViewModel: DetailLeagueViewMod
 
 @Composable
 fun SuccessFun(state: DetailLeagueState.Success, navController: NavController) {
-    Column(modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
 
-        Box(modifier = Modifier.fillMaxWidth()){
-
-            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "arrowBack",
-                modifier = Modifier.align(Alignment.TopStart).size(30.dp)
-                    .clickable {
-                        navController.popBackStack()
-                })
-
-            AsyncImage(model = state.league.leagueImage,
-                contentDescription = state.league.name,
-                modifier = Modifier.align(Alignment.TopCenter).size(150.dp).padding(horizontal = 5.dp))
-        }
-
-
+        AsyncImage(
+            model = state.league.leagueImage,
+            contentDescription = state.league.name,
+            modifier = Modifier
+                .size(150.dp)
+                .padding(horizontal = 5.dp)
+        )
 
         LazyColumn {
-            items(state.standings!!){teamStanding ->
+            items(state.standings!!) { teamStanding ->
                 StandingTeamItem(teamStanding)
+            }
         }
     }
-}
 }
 
 @Composable
@@ -88,10 +99,17 @@ fun ErrorFun(error: DetailLeagueState.Error, context: Context) {
 
 @Composable
 fun StandingTeamItem(teamStanding: StandingModel) {
-Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
 
-    AsyncImage(model = teamStanding.participant.teamImage, contentDescription = teamStanding.participant.name)
-    Text(text = teamStanding.participant.name ?: "", fontSize = 15.sp)
-    Text(text = teamStanding.points.toString(), fontSize = 15.sp, modifier = Modifier.padding(horizontal = 5.dp))
-}
+        AsyncImage(
+            model = teamStanding.participant.teamImage,
+            contentDescription = teamStanding.participant.name
+        )
+        Text(text = teamStanding.participant.name ?: "", fontSize = 15.sp)
+        Text(
+            text = teamStanding.points.toString(),
+            fontSize = 15.sp,
+            modifier = Modifier.padding(horizontal = 5.dp)
+        )
+    }
 }
