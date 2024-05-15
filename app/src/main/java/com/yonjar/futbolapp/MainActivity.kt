@@ -36,19 +36,19 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = "LeaguesScreen") {
-                    composable(route = "LeaguesScreen"){
-                        LeaguesScreen(leaguesViewModel, navController)
-                    }
-                    composable(route = "DetailLeagueScreen/{leagueId}", arguments = listOf(
-                        navArgument(name = "leagueId"){
-                            type = NavType.IntType
+                    NavHost(navController = navController, startDestination = "LeaguesScreen") {
+                        composable(route = "LeaguesScreen") {
+                            LeaguesScreen(leaguesViewModel, navController)
                         }
-                    )){args ->
-                        args.arguments?.getInt("leagueId")
-                            ?.let { DetailLeagueScreen(leagueId = it, detailLeagueViewModel) }
+                        composable(route = "DetailLeagueScreen/{leagueId}", arguments = listOf(
+                            navArgument(name = "leagueId") {
+                                type = NavType.IntType
+                            }
+                        )) { args ->
+                            args.arguments?.getInt("leagueId")
+                                ?.let { DetailLeagueScreen(leagueId = it, detailLeagueViewModel, navController) }
+                        }
                     }
-                }
                 }
             }
         }

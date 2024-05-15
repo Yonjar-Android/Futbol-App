@@ -1,6 +1,7 @@
 package com.yonjar.futbolapp.leagues.data
 
 import android.util.Log
+import androidx.compose.runtime.rememberCoroutineScope
 import com.yonjar.futbolapp.leagues.data.network.LeagueService
 import com.yonjar.futbolapp.leagues.domain.models.LeagueModel
 import com.yonjar.futbolapp.leagues.domain.models.StandingModel
@@ -8,6 +9,7 @@ import com.yonjar.futbolapp.leagues.domain.models.TeamModel
 import com.yonjar.futbolapp.leagues.domain.repositories.Repository
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.system.measureTimeMillis
 
 @Singleton
 class Repository @Inject constructor(private val leagueService: LeagueService): Repository {
@@ -16,7 +18,17 @@ class Repository @Inject constructor(private val leagueService: LeagueService): 
         runCatching {
             leagueService.getLeagues()
         }.onSuccess {
-            return it.leagues.map {league-> league.toLeagueModel() }
+            val leaguesList = mutableListOf<LeagueModel>()
+
+            for (n in it.leagues){
+                if(n.subType == "domestic"){
+                    leaguesList.add(n.toLeagueModel())
+                }
+
+            }
+
+            return leaguesList
+
         }
             .onFailure { Log.i("Error", "Error: $it") }
         return null
@@ -25,34 +37,22 @@ class Repository @Inject constructor(private val leagueService: LeagueService): 
     override suspend fun getLeagueById(id:Int):LeagueModel?{
         runCatching {
             leagueService.getLeagueById(id)
-        }.onSuccess { return it.league.toLeagueModel() }
+        }.onSuccess {
+            Log.i("league",it.league.toLeagueModel().toString())
+            return it.league.toLeagueModel() }
             .onFailure { Log.i("ErrorOnFailure", "Error ${it.message}") }
         return null
     }
 
-    override suspend fun getStandingBySeasonId(id:Int):List<StandingModel>?{
+    override suspend fun getStandingBySeasonId(id:Int?):List<StandingModel>?{
         runCatching {
-            leagueService.getStandingsBySeasonId()
+            leagueService.getStandingsBySeasonId(id)
         }.onSuccess { standings ->
-
-            val teams = mutableListOf<StandingModel>()
-            val teamsAdded = mutableListOf<Int>()
-
-
+            val newList = mutableListOf<StandingModel>()
             for (s in standings.data){
-                if(s.participantId !in teamsAdded){
-                    teamsAdded.add(s.participantId)
-
-                    val teamCall = getTeamById(s.participantId)
-
-                    if (teamCall != null){
-                        teams.add(s.toStandingModel(teamCall.name ?: "", teamCall.teamImage ?: ""))
-                    }
-                }
-
+                newList.add(s.toStandingModel())
             }
-            return teams
-
+            return newList
         }
         .onFailure { Log.i("Error Message","Error: ${it.message}") }
         return null

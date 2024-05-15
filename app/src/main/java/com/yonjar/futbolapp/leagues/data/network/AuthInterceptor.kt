@@ -4,6 +4,7 @@ import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
+import okhttp3.ResponseBody.Companion.toResponseBody
 import javax.inject.Inject
 
 
@@ -18,8 +19,18 @@ class AuthInterceptor @Inject constructor() : Interceptor {
 
         Log.i("Code response", response.code.toString())
         Log.i("Code message", response.message)
-        Log.i("Code body", response.body.toString())
 
-        return response
+        // Obteniendo el cuerpo de la respuesta como una cadena
+        val responseBodyString = response.body?.string()
+        Log.i("Code body", responseBodyString ?: "Empty body")
+
+        // Reconstruir el cuerpo de la respuesta, ya que al llamar a `string()`, el cuerpo de la respuesta se consume y no se puede leer nuevamente.
+        val newResponseBody = responseBodyString?.toResponseBody(response.body?.contentType())
+
+        // Construir una nueva respuesta con el cuerpo reconstruido
+        val newResponse = response.newBuilder().body(newResponseBody).build()
+
+        return newResponse
     }
+
 }

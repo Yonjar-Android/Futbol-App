@@ -20,7 +20,7 @@ class DetailLeagueViewModel @Inject constructor
         viewModelScope.launch {
             try {
                 val response = repository.getLeagueById(leagueId)
-                val response2 = repository.getStandingBySeasonId(0)
+                val response2 = repository.getStandingBySeasonId(response?.currentSeason?.idSeason)
 
                 if(response != null && response2 != null){
                     _state.value = DetailLeagueState.Success(response,response2)

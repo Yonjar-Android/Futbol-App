@@ -15,10 +15,16 @@ data class LeagueModelResponse(
     @SerializedName("id") val id: Int,
     @SerializedName("country_id") val countryId: Int,
     @SerializedName("name") val name: String,
-    @SerializedName("image_path") val leagueImage: String
+    @SerializedName("image_path") val leagueImage: String,
+    @SerializedName("sub_type") val subType:String,
+    @SerializedName("currentseason") val currentSeason:CurrentSeasonModelResponse?
 ) {
-    fun toLeagueModel(): LeagueModel =
-        LeagueModel(id = id, countryId = countryId,
-            name = name, leagueImage = leagueImage)
+    fun toLeagueModel(): LeagueModel = LeagueModel(
+        id = id, countryId = countryId,
+            name = name,
+            leagueImage = leagueImage,
+            subType = subType,
+            currentSeason = currentSeason?.toCurrentSeasonModel()
+        )
 }
 

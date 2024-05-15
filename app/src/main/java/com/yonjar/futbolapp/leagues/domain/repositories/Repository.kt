@@ -10,7 +10,7 @@ interface Repository {
 
     suspend fun getLeagueById(id:Int):LeagueModel?
 
-    suspend fun getStandingBySeasonId(id:Int):List<StandingModel>?
-
+    suspend fun getStandingBySeasonId(id:Int?):List<StandingModel>?
     suspend fun getTeamById(id:Int): TeamModel?
+
 }

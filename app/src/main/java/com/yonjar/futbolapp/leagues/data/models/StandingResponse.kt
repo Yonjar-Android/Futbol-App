@@ -2,6 +2,7 @@ package com.yonjar.futbolapp.leagues.data.models
 
 import com.google.gson.annotations.SerializedName
 import com.yonjar.futbolapp.leagues.domain.models.StandingModel
+import com.yonjar.futbolapp.leagues.domain.models.TeamModel
 
 data class StandingResponse(
 @SerializedName("data") val data:List<StandingModelResponse>
@@ -19,9 +20,10 @@ data class StandingModelResponse(
     @SerializedName("standing_rule_id") val standingRuleId: Int,
     @SerializedName("position") val position: Int,
     @SerializedName("result") val result: String,
-    @SerializedName("points") val points: Int
+    @SerializedName("points") val points: Int,
+    @SerializedName("participant") val team:TeamModelResponse
 ){
-    fun toStandingModel(name:String, teamShield:String) = StandingModel(
+    fun toStandingModel() = StandingModel(
         id = id,
         participantId = participantId,
         sportId = sportId,
@@ -34,8 +36,7 @@ data class StandingModelResponse(
         position = position,
         result = result,
         points = points,
-        name = name,
-        teamImage = teamShield
+        participant = team.toTeamModel()
 
     )
 }

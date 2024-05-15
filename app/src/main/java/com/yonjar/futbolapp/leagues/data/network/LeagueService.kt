@@ -6,17 +6,18 @@ import com.yonjar.futbolapp.leagues.data.models.StandingResponse
 import com.yonjar.futbolapp.leagues.data.models.TeamResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface LeagueService {
 
     @GET("leagues")
-    suspend fun getLeagues(): LeagueResponse
+    suspend fun getLeagues(@Query("include") include: String = "currentSeason"): LeagueResponse
 
     @GET("leagues/{id}")
-    suspend fun getLeagueById(@Path("id") id:Int):OneLeagueResponse
+    suspend fun getLeagueById(@Path("id") id:Int, @Query("include") include: String = "currentSeason"):OneLeagueResponse
 
-    @GET("standings/seasons/19686")
-    suspend fun getStandingsBySeasonId():StandingResponse
+    @GET("standings/seasons/{id}?include=participant")
+    suspend fun getStandingsBySeasonId(@Path("id") id:Int?):StandingResponse
 
     @GET("teams/{id}")
     suspend fun getTeamById(@Path("id") id:Int): TeamResponse
