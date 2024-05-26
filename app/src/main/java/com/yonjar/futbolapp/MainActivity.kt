@@ -17,6 +17,8 @@ import com.yonjar.futbolapp.leagues.ui.leagueDetail.DetailLeagueScreen
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.DetailLeagueViewModel
 import com.yonjar.futbolapp.leagues.ui.leagueMainScreen.LeaguesScreen
 import com.yonjar.futbolapp.leagues.ui.leagueMainScreen.LeaguesViewModel
+import com.yonjar.futbolapp.leagues.ui.teamsDetail.TeamScreenViewModel
+import com.yonjar.futbolapp.leagues.ui.teamsDetail.TeamsScreen
 import com.yonjar.futbolapp.ui.theme.FutbolAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +29,8 @@ class MainActivity : ComponentActivity() {
 
     private val detailLeagueViewModel: DetailLeagueViewModel by viewModels()
 
+    private val teamScreenViewModel:TeamScreenViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -36,6 +40,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
+
                     NavHost(navController = navController, startDestination = "LeaguesScreen") {
                         composable(route = "LeaguesScreen") {
                             LeaguesScreen(leaguesViewModel, navController)
@@ -47,6 +52,15 @@ class MainActivity : ComponentActivity() {
                         )) { args ->
                             args.arguments?.getInt("leagueId")
                                 ?.let { DetailLeagueScreen(leagueId = it, detailLeagueViewModel, navController) }
+                        }
+
+                        composable(route = "TeamsScreen/{teamId}", arguments = listOf(
+                            navArgument(name = "teamId"){
+                                type = NavType.IntType
+                            }
+                        )){args ->
+                            args.arguments?.getInt("teamId")
+                                ?.let { TeamsScreen(teamId = it, navController, teamScreenViewModel) }
                         }
                     }
                 }

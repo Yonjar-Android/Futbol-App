@@ -49,7 +49,10 @@ fun DetailLeagueScreen(
     ) {
 
         Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "arrowBack",
-            modifier = Modifier.align(Alignment.TopStart).size(30.dp)
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(15.dp)
+                .size(30.dp)
                 .clickable {
                     navController.popBackStack()
                 })
@@ -81,7 +84,7 @@ fun SuccessFun(state: DetailLeagueState.Success, navController: NavController) {
 
         LazyColumn {
             items(state.standings!!) { teamStanding ->
-                StandingTeamItem(teamStanding)
+                StandingTeamItem(teamStanding, navController)
             }
         }
     }
@@ -89,7 +92,7 @@ fun SuccessFun(state: DetailLeagueState.Success, navController: NavController) {
 
 @Composable
 fun LoadingFun() {
-    CircularProgressIndicator()
+        CircularProgressIndicator()
 }
 
 @Composable
@@ -98,8 +101,12 @@ fun ErrorFun(error: DetailLeagueState.Error, context: Context) {
 }
 
 @Composable
-fun StandingTeamItem(teamStanding: StandingModel) {
-    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+fun StandingTeamItem(teamStanding: StandingModel, navController: NavController) {
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .clickable {
+            navController.navigate("TeamsScreen/${teamStanding.participantId}")
+        }, verticalAlignment = Alignment.CenterVertically) {
 
         AsyncImage(
             model = teamStanding.participant.teamImage,

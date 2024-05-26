@@ -26,20 +26,3 @@ data class TeamModelResponse(
     )
 }
 
-data class TeamSquadResponse(
-    @SerializedName("data") val data:TeamSquadModelResponse
-)
-
-data class TeamSquadModelResponse(
-    @SerializedName("id") val id:Int,
-    @SerializedName("player_id") val playerId:Int,
-    @SerializedName("team_id") val teamId:Int,
-    @SerializedName("jersey_number") val jerseyNumber:Int
-){
-    fun toTeamSquadModel():TeamSquadModel = TeamSquadModel(
-        id = id,
-        playerId = playerId,
-        teamId = teamId,
-        jerseyNumber = jerseyNumber
-    )
-}

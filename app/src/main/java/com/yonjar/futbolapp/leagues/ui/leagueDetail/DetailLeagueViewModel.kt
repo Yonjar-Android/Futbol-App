@@ -2,7 +2,7 @@ package com.yonjar.futbolapp.leagues.ui.leagueDetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yonjar.futbolapp.leagues.data.Repository
+import com.yonjar.futbolapp.leagues.data.repositories.RepositoryLeagues
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailLeagueViewModel @Inject constructor
-    (private val repository: Repository)
+    (private val repositoryLeagues: RepositoryLeagues)
     :ViewModel() {
     private val _state = MutableStateFlow<DetailLeagueState>(DetailLeagueState.Loading)
     var state:StateFlow<DetailLeagueState> = _state
@@ -19,8 +19,8 @@ class DetailLeagueViewModel @Inject constructor
     fun chargeLeague(leagueId:Int){
         viewModelScope.launch {
             try {
-                val response = repository.getLeagueById(leagueId)
-                val response2 = repository.getStandingBySeasonId(response?.currentSeason?.idSeason)
+                val response = repositoryLeagues.getLeagueById(leagueId)
+                val response2 = repositoryLeagues.getStandingBySeasonId(response?.currentSeason?.idSeason)
 
                 if(response != null && response2 != null){
                     _state.value = DetailLeagueState.Success(response,response2)

@@ -1,18 +1,16 @@
-package com.yonjar.futbolapp.leagues.data
+package com.yonjar.futbolapp.leagues.data.repositories
 
 import android.util.Log
-import androidx.compose.runtime.rememberCoroutineScope
 import com.yonjar.futbolapp.leagues.data.network.LeagueService
 import com.yonjar.futbolapp.leagues.domain.models.LeagueModel
 import com.yonjar.futbolapp.leagues.domain.models.StandingModel
-import com.yonjar.futbolapp.leagues.domain.models.TeamModel
-import com.yonjar.futbolapp.leagues.domain.repositories.Repository
+import com.yonjar.futbolapp.leagues.domain.repositories.RepositoryLeagues
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.system.measureTimeMillis
 
 @Singleton
-class Repository @Inject constructor(private val leagueService: LeagueService): Repository {
+class RepositoryLeagues @Inject constructor(private val leagueService: LeagueService):
+    RepositoryLeagues {
 
     override suspend fun getLeagues():List<LeagueModel>?{
         runCatching {
@@ -24,13 +22,10 @@ class Repository @Inject constructor(private val leagueService: LeagueService): 
                 if(n.subType == "domestic"){
                     leaguesList.add(n.toLeagueModel())
                 }
-
             }
-
             return leaguesList
-
         }
-            .onFailure { Log.i("Error", "Error: $it") }
+            .onFailure { Log.i("Error Message", "Error: $it") }
         return null
     }
 
@@ -38,7 +33,6 @@ class Repository @Inject constructor(private val leagueService: LeagueService): 
         runCatching {
             leagueService.getLeagueById(id)
         }.onSuccess {
-            Log.i("league",it.league.toLeagueModel().toString())
             return it.league.toLeagueModel() }
             .onFailure { Log.i("ErrorOnFailure", "Error ${it.message}") }
         return null
@@ -57,15 +51,6 @@ class Repository @Inject constructor(private val leagueService: LeagueService): 
             return newList
         }
         .onFailure { Log.i("Error Message","Error: ${it.message}") }
-        return null
-    }
-
-    override suspend fun getTeamById(id:Int): TeamModel?{
-       runCatching {
-           leagueService.getTeamById(id)
-       } .onSuccess { return it.data.toTeamModel() }
-           .onFailure { Log.i("Error Message", "Error: ${it.message}") }
-
         return null
     }
 }

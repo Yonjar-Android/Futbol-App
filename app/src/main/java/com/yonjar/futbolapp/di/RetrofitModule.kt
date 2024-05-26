@@ -2,6 +2,7 @@ package com.yonjar.futbolapp.di
 
 import com.yonjar.futbolapp.leagues.data.network.AuthInterceptor
 import com.yonjar.futbolapp.leagues.data.network.LeagueService
+import com.yonjar.futbolapp.leagues.data.network.TeamService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,6 +32,12 @@ object RetrofitModule {
     @Singleton
     fun provideLeagueService(retrofit: Retrofit): LeagueService {
         return retrofit.create(LeagueService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTeamService(retrofit: Retrofit): TeamService {
+        return retrofit.create(TeamService::class.java)
     }
 
     @Provides
