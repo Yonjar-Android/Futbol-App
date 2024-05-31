@@ -7,5 +7,11 @@ data class TeamModel(
     val name: String?,
     val shortName: String?,
     val teamImage: String?,
-    val yearFounded: Int?
+    val yearFounded: Int?,
+    val countryName:String?,
+    val countryFlag:String?,
+    val cityName:String?,
+    val stadiumName:String?,
+    val stadiumImage:String?
+
 )

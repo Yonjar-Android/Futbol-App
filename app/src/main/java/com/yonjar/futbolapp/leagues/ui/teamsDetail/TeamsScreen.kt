@@ -2,36 +2,34 @@ package com.yonjar.futbolapp.leagues.ui.teamsDetail
 
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import coil.compose.AsyncImage
-import com.yonjar.futbolapp.leagues.domain.models.PlayerModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.InfoTeamScreen
+import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.TeamPlayersScreen
 
 @Composable
 fun TeamsScreen(
@@ -44,65 +42,85 @@ fun TeamsScreen(
     val state = teamScreenViewModel.state.collectAsState()
     val context = LocalContext.current
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Absolute.Left) {
-            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "arrowBack",
-                modifier = Modifier
-                    .size(30.dp)
-                    .clickable {
-                        navController.popBackStack()
-                    })
+    Scaffold(
+        topBar = { MyTopTeamAppBar(navController) },
+        content = {
+            it.calculateBottomPadding()
+            when (val currentState = state.value) {
+                is TeamsScreenState.Error -> ErrorFun(currentState, context)
+                TeamsScreenState.Loading -> LoadingFun()
+                is TeamsScreenState.Success -> SuccessFun(currentState, navController)
+            }
         }
-        when (val currentState = state.value) {
-            is TeamsScreenState.Error -> ErrorFun(currentState, context)
-            TeamsScreenState.Loading -> LoadingFun()
-            is TeamsScreenState.Success -> SuccessFun(currentState, navController)
-        }
-    }
-
-
+    )
 }
 
 @Composable
 fun SuccessFun(state: TeamsScreenState.Success, navController: NavHostController) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(15.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-
-    ) {
-        AsyncImage(model = state.team.teamImage, contentDescription = state.team.name,
-        modifier = Modifier.size(150.dp))
-        Text(text = "Plantilla")
-        LazyColumn() {
-            items(state.squadList){
-                PlayerItem(it.player,navController)
-            }
-        }
-    }
-}
-
-@Composable
-fun PlayerItem(player: PlayerModel, navController: NavHostController) {
-     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
-        AsyncImage(model = player.playerImage, contentDescription = player.name)
-        Text(text = player.name ?: "", fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
-    }
+    SimpleScaffold(state, navController)
 }
 
 @Composable
 fun LoadingFun() {
-        CircularProgressIndicator()
+    CircularProgressIndicator()
 }
 
 @Composable
 fun ErrorFun(error: TeamsScreenState.Error, context: Context) {
     Toast.makeText(context, error.errorMessage, Toast.LENGTH_SHORT).show()
 }
+
+@Composable
+fun MyBottomTeamNavigation(navigationController: NavHostController) {
+
+    var index by rememberSaveable {
+        mutableIntStateOf(0)
+    }
+
+    NavigationBar() {
+        NavigationBarItem(selected = index == 0, onClick = {
+            index = 0
+            navigationController.navigate("InfoTeamScreen")
+        }, icon = {
+            Icon(imageVector = Icons.Filled.Info, contentDescription = "Team Info")
+        }, label = { Text(text = "Team Info") })
+
+
+        NavigationBarItem(selected = index == 1, onClick = {
+            index = 1
+            navigationController.navigate("TeamPlayersScreen")
+        }, icon = {
+            Icon(imageVector = Icons.Filled.Person, contentDescription = "Players")
+        }, label = { Text(text = "Players") })
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyTopTeamAppBar(navController: NavHostController) {
+    TopAppBar(title = { Text(text = "Team Information") }, navigationIcon = {
+        IconButton(onClick = { navController.popBackStack() }) {
+            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+        }
+    })
+}
+
+@Composable
+fun SimpleScaffold(state: TeamsScreenState.Success, navController: NavHostController) {
+    val navigationController = rememberNavController()
+    Scaffold(topBar = {
+        MyTopTeamAppBar(navController)
+    },
+
+        content = {
+            NavHost(
+                navController = navigationController, startDestination = "InfoTeamScreen",
+                modifier = Modifier.padding(it)
+            ) {
+                composable(route = "InfoTeamScreen") { InfoTeamScreen(state) }
+                composable(route = "TeamPlayersScreen") { TeamPlayersScreen(state, navController) }
+            }
+
+        }, bottomBar = { MyBottomTeamNavigation(navigationController) })
+}
+

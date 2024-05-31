@@ -1,5 +1,6 @@
 package com.yonjar.futbolapp.leagues.ui.leagueDetail
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonjar.futbolapp.leagues.data.repositories.RepositoryLeagues
@@ -29,6 +30,7 @@ class DetailLeagueViewModel @Inject constructor
                 }
             } catch (e: Exception) {
                 _state.value = DetailLeagueState.Error("Error: ${e.message}")
+                Log.i("Message","Error: ${e.message}")
             }
         }
     }
