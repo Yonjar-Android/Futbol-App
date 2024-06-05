@@ -14,5 +14,6 @@ data class StandingModel(
     val result: String?,
     val points: Int?,
     val participant:TeamModel,
-    val stage:StageModel?
+    val stage:StageModel?,
+    val group:GroupModel?
 )

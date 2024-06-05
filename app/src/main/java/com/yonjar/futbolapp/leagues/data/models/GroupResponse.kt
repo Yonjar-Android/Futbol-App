@@ -1,0 +1,13 @@
+package com.yonjar.futbolapp.leagues.data.models
+
+import com.google.gson.annotations.SerializedName
+import com.yonjar.futbolapp.leagues.domain.models.GroupModel
+
+data class GroupResponse(
+    @SerializedName("id") val id: Int,
+    @SerializedName("name") val name: String,
+){
+    fun toGroupModel():GroupModel = GroupModel(
+        id = id, name = name
+    )
+}

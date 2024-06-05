@@ -28,9 +28,9 @@ fun TeamPlayersScreen(state: TeamsScreenState.Success, navController: NavHostCon
         horizontalAlignment = Alignment.CenterHorizontally
 
     ) {
-        Text(text = "Plantilla", fontSize = 30.sp)
+        Text(text = "Plantilla", fontSize = 30.sp, modifier = Modifier.padding(vertical = 8.dp))
 
-        LazyColumn() {
+        LazyColumn{
             items(state.squadList) {
                 PlayerItem(it.player, navController)
             }

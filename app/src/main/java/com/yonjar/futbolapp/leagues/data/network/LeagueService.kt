@@ -21,7 +21,7 @@ interface LeagueService {
     @GET("standings/seasons/{id}?")
     suspend fun getStandingsBySeasonId(
         @Path("id") id: Int?,
-        @Query("include") include: String = "participant;stage"
+        @Query("include") include: String = "participant;stage;group"
     ): StandingResponse
 
 

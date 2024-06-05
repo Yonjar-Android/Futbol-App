@@ -61,12 +61,13 @@ class RepositoryLeagues @Inject constructor(private val leagueService: LeagueSer
             val newList = mutableListOf<StandingModel>()
 
             for (s in standings.data){
-                when(s.stage?.name){
-                    "Championship Round" -> {newList.add(s.toStandingModel())}
+                when{
+                    s.stage?.name ==  "Championship Round" || s.stage?.name == "Relegation Round" -> {newList.add(s.toStandingModel())}
 
-                    "Relegation Round" -> {newList.add(s.toStandingModel())}
+                    s.group?.name == "Championship Group" || s.group?.name == "Relegation Group" -> {
+                        println(s.group.name)
+                        newList.add(s.toStandingModel())}
 
-                    "2nd Phase" -> {newList.add(s.toStandingModel())}
                 }
             }
             return newList
