@@ -9,6 +9,6 @@ sealed class DetailLeagueState {
 
     data class Error(val errorMessage:String):DetailLeagueState()
 
-    data class Success(val league: LeagueModel, val standings: List<StandingModel>?):DetailLeagueState()
+    data class Success(val league: LeagueModel, val standings: List<StandingModel>?, val playOffStandings:List<StandingModel>?):DetailLeagueState()
 
 }

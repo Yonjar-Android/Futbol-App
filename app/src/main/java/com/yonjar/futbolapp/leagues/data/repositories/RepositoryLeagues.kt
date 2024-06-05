@@ -53,4 +53,28 @@ class RepositoryLeagues @Inject constructor(private val leagueService: LeagueSer
         .onFailure { Log.i("Error Message","Error: ${it.message}") }
         return null
     }
+
+    override suspend fun getStandingPlayOffOneBySeasonId(id: Int?): List<StandingModel>? {
+        runCatching {
+            leagueService.getStandingsBySeasonId(id)
+        }.onSuccess { standings ->
+            val newList = mutableListOf<StandingModel>()
+
+            for (s in standings.data){
+                when(s.stage?.name){
+                    "Championship Round" -> {newList.add(s.toStandingModel())}
+
+                    "Relegation Round" -> {newList.add(s.toStandingModel())}
+
+                    "2nd Phase" -> {newList.add(s.toStandingModel())}
+                }
+            }
+            return newList
+        }.onFailure {
+            Log.i("Error Message","Error: ${it.message}")
+        }
+        return null
+    }
+
+
 }

@@ -2,6 +2,9 @@ package com.yonjar.futbolapp.leagues.ui.teamsDetail
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -22,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
@@ -45,11 +49,18 @@ fun TeamsScreen(
     Scaffold(
         topBar = { MyTopTeamAppBar(navController) },
         content = {
-            it.calculateBottomPadding()
-            when (val currentState = state.value) {
-                is TeamsScreenState.Error -> ErrorFun(currentState, context)
-                TeamsScreenState.Loading -> LoadingFun()
-                is TeamsScreenState.Success -> SuccessFun(currentState, navController)
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                when (val currentState = state.value) {
+                    is TeamsScreenState.Error -> ErrorFun(currentState, context)
+                    TeamsScreenState.Loading -> LoadingFun()
+                    is TeamsScreenState.Success -> SuccessFun(currentState, navController)
+                }
             }
         }
     )
@@ -108,10 +119,7 @@ fun MyTopTeamAppBar(navController: NavHostController) {
 @Composable
 fun SimpleScaffold(state: TeamsScreenState.Success, navController: NavHostController) {
     val navigationController = rememberNavController()
-    Scaffold(topBar = {
-        MyTopTeamAppBar(navController)
-    },
-
+    Scaffold(
         content = {
             NavHost(
                 navController = navigationController, startDestination = "InfoTeamScreen",

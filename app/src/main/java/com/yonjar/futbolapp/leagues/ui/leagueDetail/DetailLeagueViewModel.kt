@@ -22,9 +22,10 @@ class DetailLeagueViewModel @Inject constructor
             try {
                 val response = repositoryLeagues.getLeagueById(leagueId)
                 val response2 = repositoryLeagues.getStandingBySeasonId(response?.currentSeason?.idSeason)
+                val responsePlayOff = repositoryLeagues.getStandingPlayOffOneBySeasonId(response?.currentSeason?.idSeason)
 
-                if(response != null && response2 != null){
-                    _state.value = DetailLeagueState.Success(response,response2)
+                if(response != null && response2 != null && responsePlayOff != null){
+                    _state.value = DetailLeagueState.Success(response,response2,responsePlayOff)
                 } else{
                     _state.value = DetailLeagueState.Error("Response was null")
                 }
