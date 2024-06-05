@@ -1,4 +1,4 @@
-package com.yonjar.futbolapp.leagues.data.models
+package com.yonjar.futbolapp.leagues.data.models.teamsModel
 
 import com.google.gson.annotations.SerializedName
 import com.yonjar.futbolapp.leagues.domain.models.PlayerModel

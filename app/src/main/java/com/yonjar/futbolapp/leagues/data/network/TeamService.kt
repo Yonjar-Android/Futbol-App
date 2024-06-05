@@ -1,7 +1,7 @@
 package com.yonjar.futbolapp.leagues.data.network
 
-import com.yonjar.futbolapp.leagues.data.models.TeamResponse
-import com.yonjar.futbolapp.leagues.data.models.TeamSquadResponse
+import com.yonjar.futbolapp.leagues.data.models.teamsModel.TeamResponse
+import com.yonjar.futbolapp.leagues.data.models.teamsModel.TeamSquadResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

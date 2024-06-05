@@ -84,7 +84,7 @@ fun SuccessFun(state: DetailLeagueState.Success, navController: NavController) {
                 .padding(horizontal = 5.dp)
         )
         Text(
-            text = "Temporada: ${state.league.name}",
+            text = "Temporada: ${state.league.currentSeason?.name}",
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 8.dp),

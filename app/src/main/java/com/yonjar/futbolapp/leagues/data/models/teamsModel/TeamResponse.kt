@@ -1,10 +1,12 @@
-package com.yonjar.futbolapp.leagues.data.models
+package com.yonjar.futbolapp.leagues.data.models.teamsModel
 
 import com.google.gson.annotations.SerializedName
+import com.yonjar.futbolapp.leagues.data.models.CountryResponse
+import com.yonjar.futbolapp.leagues.data.models.VenueResponse
 import com.yonjar.futbolapp.leagues.domain.models.TeamModel
 
 data class TeamResponse(
-    @SerializedName("data") val data:TeamModelResponse
+    @SerializedName("data") val data: TeamModelResponse
 )
 
 data class TeamModelResponse(
@@ -14,8 +16,8 @@ data class TeamModelResponse(
     @SerializedName("short_code") val shortName:String,
     @SerializedName("image_path") val teamImage:String,
     @SerializedName("founded") val yearFounded:Int,
-    @SerializedName("country") val country:CountryResponse?,
-    @SerializedName("venue") val venue:VenueResponse?
+    @SerializedName("country") val country: CountryResponse?,
+    @SerializedName("venue") val venue: VenueResponse?
 ){
     fun toTeamModel() = TeamModel(
         id = id,

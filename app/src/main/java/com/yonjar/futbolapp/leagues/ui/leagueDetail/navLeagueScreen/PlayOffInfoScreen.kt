@@ -29,7 +29,9 @@ fun PlayOffInfoScreen(state: DetailLeagueState.Success, navController: NavContro
         verticalArrangement = Arrangement.Center
     ) {
         // Championship Section Header
+
         item {
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -48,15 +50,15 @@ fun PlayOffInfoScreen(state: DetailLeagueState.Success, navController: NavContro
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )
+                    TableStanding()
                 }
             }
         }
-
         // Championship Section Items
         items(state.playOffStandings!!) { teamStanding ->
             if (teamStanding.group?.name == "Championship Group"
                 || teamStanding.stage?.nameStage == "Championship Round") {
-                StandingTeamItem(teamStanding, navController)
+                TeamRow(teamStanding, navController)
             }
         }
 
@@ -80,6 +82,7 @@ fun PlayOffInfoScreen(state: DetailLeagueState.Success, navController: NavContro
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )
+                    TableStanding()
                 }
             }
         }
@@ -88,7 +91,7 @@ fun PlayOffInfoScreen(state: DetailLeagueState.Success, navController: NavContro
         items(state.playOffStandings!!) { teamStanding ->
             if (teamStanding.group?.name == "Relegation Group"
                 || teamStanding.stage?.nameStage == "Relegation Round") {
-                StandingTeamItem(teamStanding, navController)
+                TeamRow(teamStanding, navController)
             }
         }
     }

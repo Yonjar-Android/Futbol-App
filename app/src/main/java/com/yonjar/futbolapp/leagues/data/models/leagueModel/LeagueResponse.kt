@@ -1,4 +1,4 @@
-package com.yonjar.futbolapp.leagues.data.models
+package com.yonjar.futbolapp.leagues.data.models.leagueModel
 
 import com.google.gson.annotations.SerializedName
 import com.yonjar.futbolapp.leagues.domain.models.LeagueModel
@@ -17,7 +17,7 @@ data class LeagueModelResponse(
     @SerializedName("name") val name: String,
     @SerializedName("image_path") val leagueImage: String,
     @SerializedName("sub_type") val subType:String,
-    @SerializedName("currentseason") val currentSeason:CurrentSeasonModelResponse?
+    @SerializedName("currentseason") val currentSeason: CurrentSeasonModelResponse?
 ) {
     fun toLeagueModel(): LeagueModel = LeagueModel(
         id = id, countryId = countryId,
