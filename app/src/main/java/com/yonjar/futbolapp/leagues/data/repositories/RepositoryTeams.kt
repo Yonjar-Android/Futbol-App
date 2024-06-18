@@ -2,8 +2,10 @@ package com.yonjar.futbolapp.leagues.data.repositories
 
 import android.util.Log
 import com.yonjar.futbolapp.leagues.data.network.TeamService
-import com.yonjar.futbolapp.leagues.domain.models.TeamModel
-import com.yonjar.futbolapp.leagues.domain.models.TeamSquadModel
+import com.yonjar.futbolapp.leagues.domain.models.PlayerModel
+import com.yonjar.futbolapp.leagues.domain.models.PlayerStatistics
+import com.yonjar.futbolapp.leagues.domain.models.teamModels.TeamModel
+import com.yonjar.futbolapp.leagues.domain.models.teamModels.TeamSquadModel
 import com.yonjar.futbolapp.leagues.domain.repositories.RepositoryTeams
 import javax.inject.Inject
 
@@ -31,6 +33,28 @@ class RepositoryTeams @Inject constructor
 
             return squadList
 
+        }.onFailure {
+            Log.i("Error Message", "Error: ${it.message}")
+        }
+        return null
+    }
+
+    override suspend fun getPlayerById(id: Int): PlayerModel? {
+        runCatching {
+            teamService.getPlayerById(id)
+        }.onSuccess {
+            return it.player.toPlayerModel()
+        }.onFailure {
+            Log.i("Error Message", "Error: ${it.message}")
+        }
+        return null
+    }
+
+    override suspend fun getPlayerStatistics(id: Int): PlayerStatistics? {
+        runCatching {
+            teamService.getPlayerById(id, "statistics.details.type")
+        }.onSuccess {
+            return it.player.statistics?.get(0)?.toPlayerStatistic()
         }.onFailure {
             Log.i("Error Message", "Error: ${it.message}")
         }

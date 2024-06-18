@@ -1,5 +1,8 @@
 package com.yonjar.futbolapp.leagues.domain.models
 
+import com.yonjar.futbolapp.leagues.domain.models.teamModels.StandingDetailModel
+import com.yonjar.futbolapp.leagues.domain.models.teamModels.TeamModel
+
 data class StandingModel(
     val id: Int,
     val participantId: Int?,
@@ -13,8 +16,8 @@ data class StandingModel(
     val position: Int?,
     val result: String?,
     val points: Int?,
-    val participant:TeamModel,
+    val participant: TeamModel,
     val stage:StageModel?,
     val group:GroupModel?,
-    val details:StandingDetailModel
+    val details: StandingDetailModel
 )

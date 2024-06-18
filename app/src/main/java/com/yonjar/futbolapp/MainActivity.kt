@@ -17,6 +17,9 @@ import com.yonjar.futbolapp.leagues.ui.leagueDetail.DetailLeagueScreen
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.DetailLeagueViewModel
 import com.yonjar.futbolapp.leagues.ui.leagueMainScreen.LeaguesScreen
 import com.yonjar.futbolapp.leagues.ui.leagueMainScreen.LeaguesViewModel
+import com.yonjar.futbolapp.leagues.ui.playerDetail.PlayerScreen
+import com.yonjar.futbolapp.leagues.ui.playerDetail.PlayerScreenViewModel
+import com.yonjar.futbolapp.leagues.ui.playerDetail.navPlayerScreen.navPlayerStats.NavPlayerStatsViewModel
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.TeamScreenViewModel
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.TeamsScreen
 import com.yonjar.futbolapp.ui.theme.FutbolAppTheme
@@ -30,6 +33,10 @@ class MainActivity : ComponentActivity() {
     private val detailLeagueViewModel: DetailLeagueViewModel by viewModels()
 
     private val teamScreenViewModel:TeamScreenViewModel by viewModels()
+
+    private val playerScreenViewModel:PlayerScreenViewModel by viewModels()
+
+    private val playerStatsViewModel:NavPlayerStatsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +68,14 @@ class MainActivity : ComponentActivity() {
                         )){args ->
                             args.arguments?.getInt("teamId")
                                 ?.let { TeamsScreen(teamId = it, navController, teamScreenViewModel) }
+                        }
+                        composable(route = "PlayerScreen/{playerId}", arguments = listOf(
+                            navArgument(name = "playerId"){
+                                type = NavType.IntType
+                            }
+                        )){args ->
+                            args.arguments?.getInt("playerId")
+                                ?.let { PlayerScreen(playerId = it, navController, playerScreenViewModel, playerStatsViewModel) }
                         }
                     }
                 }

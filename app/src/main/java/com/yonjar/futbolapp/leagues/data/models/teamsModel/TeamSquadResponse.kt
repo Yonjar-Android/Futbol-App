@@ -2,7 +2,7 @@ package com.yonjar.futbolapp.leagues.data.models.teamsModel
 
 import com.google.gson.annotations.SerializedName
 import com.yonjar.futbolapp.leagues.domain.models.PlayerModel
-import com.yonjar.futbolapp.leagues.domain.models.TeamSquadModel
+import com.yonjar.futbolapp.leagues.domain.models.teamModels.TeamSquadModel
 
 data class TeamSquadResponse(
     @SerializedName("data") val data: List<TeamSquadModelResponse>
@@ -29,7 +29,7 @@ data class TeamSquadModelResponse(
             transferId = transferId,
             captain = captain,
             jerseyNumber = jerseyNumber,
-            nationalityId = player?.nationalityId,
+            nationality = player?.nationality?.countryName,
             positionId = position?.id,
             name = player?.displayName,
             playerImage = player?.playerImage,
@@ -37,7 +37,10 @@ data class TeamSquadModelResponse(
             weight = player?.weight,
             gender = player?.gender,
             position = position?.name,
-            detailedPosition = detailedPosition?.name
+            detailedPosition = detailedPosition?.name,
+            statistics = null,
+            dateOfBirth = null,
+            countryFlag = null
         )
     )
 }

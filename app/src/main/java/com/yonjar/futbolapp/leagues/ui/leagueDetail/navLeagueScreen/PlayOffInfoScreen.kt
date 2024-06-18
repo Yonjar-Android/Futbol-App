@@ -41,57 +41,68 @@ fun PlayOffInfoScreen(state: DetailLeagueState.Success, navController: NavContro
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
-                        text = if (state.playOffStandings?.get(0)?.stage?.nameStage == "Championship Round") {
-                            "Championship Round"
-                        } else {
-                            "Championship Group"
-                        },
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    TableStanding()
+                    if(state.playOffStandings!!.isNotEmpty()){
+                        Text(
+                            text = if (state.playOffStandings?.get(0)?.stage?.nameStage == "Championship Round") {
+                                "Championship Round"
+                            } else {
+                                "Championship Group"
+                            },
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        TableStanding()
+                    }
+
                 }
             }
         }
-        // Championship Section Items
-        items(state.playOffStandings!!) { teamStanding ->
-            if (teamStanding.group?.name == "Championship Group"
-                || teamStanding.stage?.nameStage == "Championship Round") {
-                TeamRow(teamStanding, navController)
-            }
-        }
-
-        // Relegation Section Header
-        item {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
+        if (state.playOffStandings!!.isNotEmpty()) {
+            // Championship Section Items
+            items(state.playOffStandings) { teamStanding ->
+                if (teamStanding.group?.name == "Championship Group"
+                    || teamStanding.stage?.nameStage == "Championship Round"
                 ) {
-                    Text(
-                        text = if (state.playOffStandings?.get(0)?.stage?.nameStage == "Championship Round") {
-                            "Relegation Round"
-                        } else {
-                            "Relegation Group"
-                        },
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    TableStanding()
+                    TeamRow(teamStanding, navController)
                 }
             }
-        }
 
-        // Relegation Section Items
-        items(state.playOffStandings!!) { teamStanding ->
-            if (teamStanding.group?.name == "Relegation Group"
-                || teamStanding.stage?.nameStage == "Relegation Round") {
-                TeamRow(teamStanding, navController)
+            // Relegation Section Header
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp)
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = if (state.playOffStandings?.get(0)?.stage?.nameStage == "Championship Round") {
+                                "Relegation Round"
+                            } else {
+                                "Relegation Group"
+                            },
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        TableStanding()
+                    }
+                }
+            }
+
+            // Relegation Section Items
+            items(state.playOffStandings) { teamStanding ->
+                if (teamStanding.group?.name == "Relegation Group"
+                    || teamStanding.stage?.nameStage == "Relegation Round"
+                ) {
+                    TeamRow(teamStanding, navController)
+                }
+            }
+        } else {
+            item {
+                Text(text = "There is no play-offs yet in the competition")
             }
         }
     }

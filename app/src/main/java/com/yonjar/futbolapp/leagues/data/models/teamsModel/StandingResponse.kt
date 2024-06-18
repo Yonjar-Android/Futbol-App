@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.yonjar.futbolapp.leagues.data.models.leagueModel.GroupResponse
 import com.yonjar.futbolapp.leagues.data.models.leagueModel.StageModelResponse
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.standingDetails.StandingDetails
-import com.yonjar.futbolapp.leagues.domain.models.StandingDetailModel
+import com.yonjar.futbolapp.leagues.domain.models.teamModels.StandingDetailModel
 import com.yonjar.futbolapp.leagues.domain.models.StandingModel
 
 data class StandingResponse(

@@ -1,5 +1,6 @@
 package com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -44,6 +45,9 @@ fun PlayerItem(player: PlayerModel, navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
+            .clickable {
+                navController.navigate("PlayerScreen/${player.playerId}")
+            }
     ) {
         AsyncImage(
             model = player.playerImage,

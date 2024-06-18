@@ -3,7 +3,7 @@ package com.yonjar.futbolapp.leagues.data.models.teamsModel
 import com.google.gson.annotations.SerializedName
 import com.yonjar.futbolapp.leagues.data.models.CountryResponse
 import com.yonjar.futbolapp.leagues.data.models.VenueResponse
-import com.yonjar.futbolapp.leagues.domain.models.TeamModel
+import com.yonjar.futbolapp.leagues.domain.models.teamModels.TeamModel
 
 data class TeamResponse(
     @SerializedName("data") val data: TeamModelResponse

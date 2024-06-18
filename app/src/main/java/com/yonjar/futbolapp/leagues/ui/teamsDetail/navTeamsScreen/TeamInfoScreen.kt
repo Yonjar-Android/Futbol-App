@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.TeamsScreenState
 
@@ -74,13 +75,13 @@ fun RowItem(firstTitle: String, secondTitle: String, value1: String, value2: Str
 
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
-            Text(text = firstTitle, fontWeight = FontWeight.Bold)
-            Text(text = value1)
+            Text(text = firstTitle, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+            Text(text = value1, fontSize = 17.sp)
         }
 
         Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
-            Text(text = secondTitle, fontWeight = FontWeight.Bold)
-            Text(text = value2)
+            Text(text = secondTitle, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+            Text(text = value2, fontSize = 17.sp)
         }
     }
 }
