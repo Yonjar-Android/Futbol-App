@@ -15,7 +15,9 @@ class RepositoryTeams @Inject constructor
     override suspend fun getTeamById(id: Int): TeamModel? {
         runCatching {
             teamService.getTeamById(id)
-        }.onSuccess { return it.data.toTeamModel() }
+        }.onSuccess {
+            println(it.data.activeSeason?.get(0)?.seasonId)
+            return it.data.toTeamModel() }
             .onFailure { Log.i("Error Message", "Error: ${it.message}") }
 
         return null
@@ -50,11 +52,19 @@ class RepositoryTeams @Inject constructor
         return null
     }
 
-    override suspend fun getPlayerStatistics(id: Int): PlayerStatistics? {
+    override suspend fun getPlayerStatistics(id: Int, seasonId: Int): PlayerStatistics? {
         runCatching {
             teamService.getPlayerById(id, "statistics.details.type")
         }.onSuccess {
-            return it.player.statistics?.get(0)?.toPlayerStatistic()
+            if(it.player.statistics?.isNotEmpty() == true){
+                for (n in it.player.statistics){
+                    if(n.seasonId == seasonId){
+                        return n.toPlayerStatistic()
+                    }
+                    continue
+                }
+            }
+            return null
         }.onFailure {
             Log.i("Error Message", "Error: ${it.message}")
         }

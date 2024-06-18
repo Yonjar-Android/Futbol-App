@@ -1,9 +1,11 @@
 package com.yonjar.futbolapp
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -38,6 +40,7 @@ class MainActivity : ComponentActivity() {
 
     private val playerStatsViewModel:NavPlayerStatsViewModel by viewModels()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -69,13 +72,29 @@ class MainActivity : ComponentActivity() {
                             args.arguments?.getInt("teamId")
                                 ?.let { TeamsScreen(teamId = it, navController, teamScreenViewModel) }
                         }
-                        composable(route = "PlayerScreen/{playerId}", arguments = listOf(
-                            navArgument(name = "playerId"){
-                                type = NavType.IntType
+                        composable(
+                            route = "PlayerScreen/{playerId}/{currentSeasonId}",
+                            arguments = listOf(
+                                navArgument(name = "playerId") {
+                                    type = NavType.IntType
+                                },
+                                navArgument(name = "currentSeasonId") {
+                                    type = NavType.IntType
+                                }
+                            )
+                        ) { args ->
+                            val playerId = args.arguments?.getInt("playerId")
+                            val currentSeasonId = args.arguments?.getInt("currentSeasonId")
+
+                            if (playerId != null && currentSeasonId != null) {
+                                PlayerScreen(
+                                    playerId = playerId,
+                                    currentSeasonId = currentSeasonId,
+                                    navHostController = navController,
+                                    playerScreenViewModel = playerScreenViewModel,
+                                    playerStatsViewModel = playerStatsViewModel
+                                )
                             }
-                        )){args ->
-                            args.arguments?.getInt("playerId")
-                                ?.let { PlayerScreen(playerId = it, navController, playerScreenViewModel, playerStatsViewModel) }
                         }
                     }
                 }

@@ -12,6 +12,8 @@ data class TeamModel(
     val countryFlag:String?,
     val cityName:String?,
     val stadiumName:String?,
-    val stadiumImage:String?
+    val stadiumImage:String?,
+    val currentSeasonId:Int?,
+    val currentSeasonName:String?
 
 )

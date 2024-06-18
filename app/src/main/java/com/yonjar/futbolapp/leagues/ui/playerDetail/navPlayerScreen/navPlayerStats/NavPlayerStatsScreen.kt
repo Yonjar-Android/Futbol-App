@@ -22,14 +22,15 @@ import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.RowItem
 fun NavPlayerStatsScreen(
     state: PlayerState.Success,
     navController: NavHostController,
-    playerStatsViewModel: NavPlayerStatsViewModel
+    playerStatsViewModel: NavPlayerStatsViewModel,
+    currentSeasonId: Int
 ) {
 
-    playerStatsViewModel.getPlayerStatistics(state.player.playerId)
+    playerStatsViewModel.getPlayerStatistics(state.player.playerId, currentSeasonId)
 
     val state = playerStatsViewModel.state.collectAsState()
     val context = LocalContext.current
-
+println(currentSeasonId)
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -52,6 +53,7 @@ fun SuccessFun(currentState: NavPlayerStatsState.Success) {
             .padding(15.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        println(currentState.list.statisticList)
         for (n in 0 until currentState.list.statisticList.size step 2) {
             if (n + 1 < currentState.list.statisticList.size) {
                 RowItem(

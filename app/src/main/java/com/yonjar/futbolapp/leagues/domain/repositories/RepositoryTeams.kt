@@ -13,6 +13,6 @@ interface RepositoryTeams {
 
     suspend fun getPlayerById(id: Int):PlayerModel?
 
-    suspend fun getPlayerStatistics(id:Int):PlayerStatistics?
+    suspend fun getPlayerStatistics(id:Int, seasonId:Int):PlayerStatistics?
 
 }

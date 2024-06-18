@@ -15,10 +15,10 @@ constructor(private val repositoryTeams: RepositoryTeams)
     : ViewModel() {
     private val _state = MutableStateFlow<NavPlayerStatsState>(NavPlayerStatsState.Loading)
     var state: StateFlow<NavPlayerStatsState> = _state
-    fun getPlayerStatistics(playerId: Int) {
+    fun getPlayerStatistics(playerId: Int, currentSeasonId:Int) {
         viewModelScope.launch {
             try {
-                val response = repositoryTeams.getPlayerStatistics(playerId)
+                val response = repositoryTeams.getPlayerStatistics(playerId,currentSeasonId)
                 if(response != null){
                     _state.value = NavPlayerStatsState.Success(response)
                 } else{

@@ -12,7 +12,7 @@ interface TeamService {
     @GET("teams/{id}")
     suspend fun getTeamById(
         @Path("id") id: Int,
-        @Query("include") includeTeam: String = "country;venue")
+        @Query("include") includeTeam: String = "country;venue;activeSeasons")
     : TeamResponse
 
     @GET("squads/teams/{id}")

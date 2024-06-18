@@ -17,7 +17,8 @@ data class TeamModelResponse(
     @SerializedName("image_path") val teamImage:String,
     @SerializedName("founded") val yearFounded:Int,
     @SerializedName("country") val country: CountryResponse?,
-    @SerializedName("venue") val venue: VenueResponse?
+    @SerializedName("venue") val venue: VenueResponse?,
+    @SerializedName("activeseasons") val activeSeason: List<ActiveSeason>?
 ){
     fun toTeamModel() = TeamModel(
         id = id,
@@ -30,8 +31,14 @@ data class TeamModelResponse(
         cityName = venue?.cityName,
         stadiumImage = venue?.stadiumImage,
         countryName = country?.countryName,
-        countryFlag = country?.countryFlag
-
+        countryFlag = country?.countryFlag,
+        currentSeasonId = activeSeason?.get(0)?.seasonId,
+        currentSeasonName = activeSeason?.get(0)?.name
     )
 }
+
+data class ActiveSeason(
+    @SerializedName("id") val seasonId:Int?,
+    @SerializedName("name") val name:String?
+)
 

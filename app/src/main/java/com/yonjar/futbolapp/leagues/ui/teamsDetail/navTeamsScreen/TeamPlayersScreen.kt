@@ -33,20 +33,20 @@ fun TeamPlayersScreen(state: TeamsScreenState.Success, navController: NavHostCon
 
         LazyColumn{
             items(state.squadList) {
-                PlayerItem(it.player, navController)
+                PlayerItem(it.player, navController, state.team.currentSeasonId ?: 0)
             }
         }
     }
 }
 
 @Composable
-fun PlayerItem(player: PlayerModel, navController: NavHostController) {
+fun PlayerItem(player: PlayerModel, navController: NavHostController, currentSeasonId:Int) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                navController.navigate("PlayerScreen/${player.playerId}")
+                navController.navigate("PlayerScreen/${player.playerId}/${currentSeasonId}")
             }
     ) {
         AsyncImage(

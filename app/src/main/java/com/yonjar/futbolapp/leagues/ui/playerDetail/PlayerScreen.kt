@@ -50,6 +50,7 @@ import com.yonjar.futbolapp.leagues.ui.playerDetail.navPlayerScreen.navPlayerSta
 @Composable
 fun PlayerScreen(
     playerId: Int,
+    currentSeasonId: Int,
     navHostController: NavHostController,
     playerScreenViewModel: PlayerScreenViewModel,
     playerStatsViewModel: NavPlayerStatsViewModel
@@ -72,7 +73,12 @@ fun PlayerScreen(
                 when (val currentState = state.value) {
                     is PlayerState.Error -> ErrorFun(currentState, context)
                     PlayerState.Loading -> LoadingFun()
-                    is PlayerState.Success -> SuccessFun(currentState, navHostController, playerStatsViewModel)
+                    is PlayerState.Success -> SuccessFun(
+                        currentState,
+                        navHostController,
+                        playerStatsViewModel,
+                        currentSeasonId
+                    )
                 }
             }
         }
@@ -84,7 +90,8 @@ fun PlayerScreen(
 fun SuccessFun(
     currentState: PlayerState.Success,
     navController: NavHostController,
-    playerStatsViewModel: NavPlayerStatsViewModel
+    playerStatsViewModel: NavPlayerStatsViewModel,
+    currentSeasonId:Int
 ) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         AsyncImage(
@@ -100,7 +107,12 @@ fun SuccessFun(
         )
         HorizontalDivider(modifier = Modifier.padding(2.dp))
 
-        MyPlayerScaffold(currentState = currentState, navController = navController, playerStatsViewModel = playerStatsViewModel)
+        MyPlayerScaffold(
+            currentState = currentState,
+            navController = navController,
+            playerStatsViewModel = playerStatsViewModel,
+            currentSeasonId = currentSeasonId
+        )
     }
 }
 
@@ -129,7 +141,8 @@ fun MyTopPlayerAppBar(navController: NavHostController) {
 fun MyPlayerScaffold(
     currentState: PlayerState.Success,
     navController: NavHostController,
-    playerStatsViewModel: NavPlayerStatsViewModel
+    playerStatsViewModel: NavPlayerStatsViewModel,
+    currentSeasonId: Int
 ) {
     val navigationController = rememberNavController()
 
@@ -149,7 +162,8 @@ fun MyPlayerScaffold(
                     NavPlayerStatsScreen(
                         state = currentState,
                         navController = navController,
-                        playerStatsViewModel = playerStatsViewModel
+                        playerStatsViewModel = playerStatsViewModel,
+                        currentSeasonId = currentSeasonId
                     )
                 }
             }

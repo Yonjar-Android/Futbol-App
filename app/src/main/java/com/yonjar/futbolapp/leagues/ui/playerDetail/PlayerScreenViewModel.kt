@@ -30,9 +30,4 @@ class PlayerScreenViewModel @Inject constructor(private val repositoryTeams: Rep
             }
         }
     }
-
-    fun getPlayerStatistics(playerId: Int) {
-
-    }
-
 }
