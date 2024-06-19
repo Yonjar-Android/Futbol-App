@@ -2,8 +2,6 @@ package com.yonjar.futbolapp.leagues.ui.playerDetail.navPlayerScreen
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -49,6 +46,13 @@ fun NavPlayerInfoScreen(
             secondTitle = "Peso",
             value1 = currentState.player.height.toString(),
             value2 = currentState.player.weight.toString()
+        )
+
+        RowItem(
+            firstTitle = "Posición",
+            secondTitle = "Posición específica",
+            value1 = currentState.player.position ?: "Undefined",
+            value2 = currentState.player.detailedPosition ?: "Undefined"
         )
 
         Row(modifier = Modifier.fillMaxWidth()) {

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -30,7 +31,7 @@ fun NavPlayerStatsScreen(
 
     val state = playerStatsViewModel.state.collectAsState()
     val context = LocalContext.current
-println(currentSeasonId)
+
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -53,7 +54,9 @@ fun SuccessFun(currentState: NavPlayerStatsState.Success) {
             .padding(15.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        println(currentState.list.statisticList)
+        if(currentState.list.statisticList.isEmpty()){
+            Text(text = "There's no stats yet this season")
+        }
         for (n in 0 until currentState.list.statisticList.size step 2) {
             if (n + 1 < currentState.list.statisticList.size) {
                 RowItem(
@@ -73,8 +76,6 @@ fun SuccessFun(currentState: NavPlayerStatsState.Success) {
         }
     }
 }
-
-
 
 @Composable
 fun ErrorFun(currentState: NavPlayerStatsState.Error, context: Context) {
