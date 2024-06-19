@@ -130,7 +130,7 @@ fun ErrorFun(currentState: PlayerState.Error, context: Context) {
 @Composable
 fun MyTopPlayerAppBar(navController: NavHostController) {
     TopAppBar(title = { Text(text = "Player Information") }, navigationIcon = {
-        IconButton(onClick = { navController.popBackStack() }) {
+        IconButton(onClick = { navController.navigateUp() }) {
             Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
         }
     })

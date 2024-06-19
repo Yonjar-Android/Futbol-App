@@ -109,7 +109,7 @@ fun ErrorFun(error: DetailLeagueState.Error, context: Context) {
 @Composable
 fun MyTopLeagueBar(navController: NavController) {
     TopAppBar(title = { Text(text = "League") }, navigationIcon = {
-        IconButton(onClick = { navController.popBackStack() }) {
+        IconButton(onClick = { navController.navigateUp() }) {
             Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
         }
     })

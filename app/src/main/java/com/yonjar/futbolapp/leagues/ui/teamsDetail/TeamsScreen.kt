@@ -110,7 +110,7 @@ fun MyBottomTeamNavigation(navigationController: NavHostController) {
 @Composable
 fun MyTopTeamAppBar(navController: NavHostController) {
     TopAppBar(title = { Text(text = "Team Information") }, navigationIcon = {
-        IconButton(onClick = { navController.popBackStack() }) {
+        IconButton(onClick = { navController.navigateUp() }) {
             Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
         }
     })
