@@ -19,6 +19,7 @@ class DetailLeagueViewModel @Inject constructor
 
     fun chargeLeague(leagueId:Int){
         viewModelScope.launch {
+            _state.value = DetailLeagueState.Loading
             try {
                 val response = repositoryLeagues.getLeagueById(leagueId)
                 val response2 = repositoryLeagues.getStandingBySeasonId(response?.currentSeason?.idSeason)

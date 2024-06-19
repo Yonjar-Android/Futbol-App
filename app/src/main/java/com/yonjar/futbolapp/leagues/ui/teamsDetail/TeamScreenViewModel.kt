@@ -16,6 +16,7 @@ class TeamScreenViewModel @Inject constructor(private val repositoryTeams: Repos
 
     fun loadTeam(teamId:Int){
         viewModelScope.launch {
+            _state.value = TeamsScreenState.Loading
             try {
                 val responseTeam = repositoryTeams.getTeamById(teamId)
                 val responseSquad = repositoryTeams.getTeamSquadById(teamId)

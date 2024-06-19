@@ -18,7 +18,6 @@ class LeaguesViewModel @Inject constructor(private val repositoryLeagues: Reposi
     init {
         viewModelScope.launch {
            val list = repositoryLeagues.getLeagues()
-            Log.i("MessagePlayers", list.toString())
             if(list.isNullOrEmpty()){
                 _state.value = LeaguesState.Error("Error cargando")
             } else {

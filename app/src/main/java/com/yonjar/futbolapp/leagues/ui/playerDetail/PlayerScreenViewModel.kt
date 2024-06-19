@@ -18,6 +18,7 @@ class PlayerScreenViewModel @Inject constructor(private val repositoryTeams: Rep
 
     fun getPlayerInformation(playerId: Int) {
         viewModelScope.launch {
+            _state.value = PlayerState.Loading
             try {
                 val response = repositoryTeams.getPlayerById(playerId)
                 if(response != null){

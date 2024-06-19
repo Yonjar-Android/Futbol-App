@@ -20,9 +20,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -41,10 +43,19 @@ fun TeamsScreen(
     navController: NavHostController,
     teamScreenViewModel: TeamScreenViewModel
 ) {
-    teamScreenViewModel.loadTeam(teamId)
 
     val state = teamScreenViewModel.state.collectAsState()
     val context = LocalContext.current
+    var rememberTeam by rememberSaveable {
+        mutableStateOf(0)
+    }
+
+    if(teamId != rememberTeam){
+        LaunchedEffect(teamId) {
+            teamScreenViewModel.loadTeam(teamId)
+        }
+        rememberTeam = teamId
+    }
 
     Scaffold(
         topBar = { MyTopTeamAppBar(navController) },
