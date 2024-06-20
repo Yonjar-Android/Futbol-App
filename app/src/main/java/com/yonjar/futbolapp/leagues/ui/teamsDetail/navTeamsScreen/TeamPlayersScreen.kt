@@ -12,11 +12,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.yonjar.futbolapp.R
 import com.yonjar.futbolapp.leagues.domain.models.PlayerModel
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.TeamsScreenState
 
@@ -50,7 +53,11 @@ fun PlayerItem(player: PlayerModel, navController: NavHostController, currentSea
             }
     ) {
         AsyncImage(
-            model = player.playerImage,
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(player.playerImage)
+                .crossfade(true)
+                .error(R.drawable.placeholder)
+                .build(),
             contentDescription = player.name,
             modifier = Modifier.size(100.dp)
         )

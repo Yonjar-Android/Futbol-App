@@ -25,8 +25,8 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun NavPlayerInfoScreen(
     currentState: PlayerState.Success,
-    navController: NavHostController
 ) {
+    println(currentState.player.playerId)
     Column(
         modifier = Modifier
             .fillMaxSize()

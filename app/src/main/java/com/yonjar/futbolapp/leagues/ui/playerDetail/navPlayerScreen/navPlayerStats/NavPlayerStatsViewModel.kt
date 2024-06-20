@@ -17,6 +17,7 @@ constructor(private val repositoryTeams: RepositoryTeams)
     var state: StateFlow<NavPlayerStatsState> = _state
     fun getPlayerStatistics(playerId: Int, currentSeasonId:Int) {
         viewModelScope.launch {
+            _state.value = NavPlayerStatsState.Loading
             try {
                 val response = repositoryTeams.getPlayerStatistics(playerId,currentSeasonId)
                 if(response != null){

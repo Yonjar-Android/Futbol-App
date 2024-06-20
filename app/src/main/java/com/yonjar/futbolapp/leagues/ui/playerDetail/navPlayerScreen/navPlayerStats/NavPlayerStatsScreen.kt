@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,15 +23,18 @@ import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.RowItem
 @Composable
 fun NavPlayerStatsScreen(
     state: PlayerState.Success,
-    navController: NavHostController,
     playerStatsViewModel: NavPlayerStatsViewModel,
     currentSeasonId: Int
 ) {
 
-    playerStatsViewModel.getPlayerStatistics(state.player.playerId, currentSeasonId)
+    LaunchedEffect(state.player.playerId) {
+        playerStatsViewModel.getPlayerStatistics(state.player.playerId, currentSeasonId)
+    }
 
     val state = playerStatsViewModel.state.collectAsState()
     val context = LocalContext.current
+
+
 
     Column(
         modifier = Modifier
