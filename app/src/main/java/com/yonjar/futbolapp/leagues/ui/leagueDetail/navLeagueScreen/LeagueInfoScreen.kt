@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.yonjar.futbolapp.leagues.domain.models.StandingModel
+import com.yonjar.futbolapp.leagues.domain.models.leagueModels.StandingModel
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.DetailLeagueState
 
 @Composable

@@ -1,4 +1,4 @@
-package com.yonjar.futbolapp.leagues.domain.models
+package com.yonjar.futbolapp.leagues.domain.models.leagueModels
 
 data class StageModel(
     val stageId:Int,

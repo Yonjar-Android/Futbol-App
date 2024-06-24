@@ -5,7 +5,7 @@ import com.yonjar.futbolapp.leagues.data.models.leagueModel.GroupResponse
 import com.yonjar.futbolapp.leagues.data.models.leagueModel.StageModelResponse
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.standingDetails.StandingDetails
 import com.yonjar.futbolapp.leagues.domain.models.teamModels.StandingDetailModel
-import com.yonjar.futbolapp.leagues.domain.models.StandingModel
+import com.yonjar.futbolapp.leagues.domain.models.leagueModels.StandingModel
 
 data class StandingResponse(
 @SerializedName("data") val data:List<StandingModelResponse>
@@ -29,7 +29,7 @@ data class StandingModelResponse(
     @SerializedName("group") val group: GroupResponse?,
     @SerializedName("details") val details:List<StandingDetails>?
 ){
-    fun toStandingModel():StandingModel{
+    fun toStandingModel(): StandingModel {
 
         var standingModel = StandingDetailModel(0,0,0)
 

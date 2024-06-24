@@ -1,7 +1,7 @@
 package com.yonjar.futbolapp.leagues.ui.leagueDetail
 
-import com.yonjar.futbolapp.leagues.domain.models.LeagueModel
-import com.yonjar.futbolapp.leagues.domain.models.StandingModel
+import com.yonjar.futbolapp.leagues.domain.models.leagueModels.LeagueModel
+import com.yonjar.futbolapp.leagues.domain.models.leagueModels.StandingModel
 
 sealed class DetailLeagueState {
 

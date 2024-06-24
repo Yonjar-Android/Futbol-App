@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.yonjar.futbolapp.leagues.domain.models.LeagueModel
+import com.yonjar.futbolapp.leagues.domain.models.leagueModels.LeagueModel
 
 @Composable
 
