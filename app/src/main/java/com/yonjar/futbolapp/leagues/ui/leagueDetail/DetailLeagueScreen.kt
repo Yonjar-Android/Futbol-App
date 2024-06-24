@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.CircularProgressIndicator
@@ -42,12 +43,15 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.LeagueInfoScreen
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.PlayOffInfoScreen
+import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.matchesInfoScreen.MatchesInfoScreen
+import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.matchesInfoScreen.MatchesViewModel
 
 @Composable
 fun DetailLeagueScreen(
     leagueId: Int,
     detailLeagueViewModel: DetailLeagueViewModel,
-    navController: NavController
+    navController: NavController,
+    matchesViewModel: MatchesViewModel
 ) {
     val state = detailLeagueViewModel.state.collectAsState()
     val context = LocalContext.current
@@ -75,7 +79,7 @@ fun DetailLeagueScreen(
                 when (val currentState = state.value) {
                     is DetailLeagueState.Error -> ErrorFun(currentState, context)
                     DetailLeagueState.Loading -> LoadingFun()
-                    is DetailLeagueState.Success -> SuccessFun(currentState, navController)
+                    is DetailLeagueState.Success -> SuccessFun(currentState, navController, matchesViewModel)
                 }
             }
         }
@@ -84,7 +88,11 @@ fun DetailLeagueScreen(
 
 
 @Composable
-fun SuccessFun(state: DetailLeagueState.Success, navController: NavController) {
+fun SuccessFun(
+    state: DetailLeagueState.Success,
+    navController: NavController,
+    matchesViewModel: MatchesViewModel
+) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         AsyncImage(
             model = state.league.leagueImage,
@@ -100,7 +108,7 @@ fun SuccessFun(state: DetailLeagueState.Success, navController: NavController) {
             modifier = Modifier.padding(bottom = 8.dp),
             color = Color.Black
         )
-        MyLeagueScaffold(state = state, navController = navController)
+        MyLeagueScaffold(state = state, navController = navController, matchesViewModel= matchesViewModel)
     }
 }
 
@@ -132,7 +140,7 @@ fun MyBottomTeamNavigation(navigationController: NavController) {
         mutableIntStateOf(0)
     }
 
-    NavigationBar() {
+    NavigationBar {
         NavigationBarItem(selected = index == 0, onClick = {
             index = 0
             navigationController.navigate("LeagueInfoScreen")
@@ -147,11 +155,21 @@ fun MyBottomTeamNavigation(navigationController: NavController) {
         }, icon = {
             Icon(imageVector = Icons.Filled.Person, contentDescription = "Play-Offs Screen")
         }, label = { Text(text = "Play-Offs") })
+
+        NavigationBarItem(selected = index == 2, onClick = {
+            navigationController.navigate("MatchesInfoScreen")
+        }, icon = {
+            Icon(imageVector = Icons.Filled.Face, contentDescription = "Matches of the League")
+        }, label = { Text(text = "Matches")})
     }
 }
 
 @Composable
-fun MyLeagueScaffold(state: DetailLeagueState.Success, navController: NavController) {
+fun MyLeagueScaffold(
+    state: DetailLeagueState.Success,
+    navController: NavController,
+    matchesViewModel: MatchesViewModel
+) {
     val navigationController = rememberNavController()
     Scaffold(
         content = {
@@ -165,6 +183,9 @@ fun MyLeagueScaffold(state: DetailLeagueState.Success, navController: NavControl
                         state = state,
                         navController = navController
                     )
+                }
+                composable(route = "MatchesInfoScreen"){
+                    MatchesInfoScreen(matchesViewModel, navController, state.league.id)
                 }
             }
 

@@ -17,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.DetailLeagueScreen
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.DetailLeagueViewModel
+import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.matchesInfoScreen.MatchesViewModel
 import com.yonjar.futbolapp.leagues.ui.leagueMainScreen.LeaguesScreen
 import com.yonjar.futbolapp.leagues.ui.leagueMainScreen.LeaguesViewModel
 import com.yonjar.futbolapp.leagues.ui.playerDetail.PlayerScreen
@@ -40,6 +41,8 @@ class MainActivity : ComponentActivity() {
 
     private val playerStatsViewModel:NavPlayerStatsViewModel by viewModels()
 
+    private val matchesViewModel:MatchesViewModel by viewModels()
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +64,7 @@ class MainActivity : ComponentActivity() {
                             }
                         )) { args ->
                             args.arguments?.getInt("leagueId")
-                                ?.let { DetailLeagueScreen(leagueId = it, detailLeagueViewModel, navController) }
+                                ?.let { DetailLeagueScreen(leagueId = it, detailLeagueViewModel, navController, matchesViewModel = matchesViewModel) }
                         }
 
                         composable(route = "TeamsScreen/{teamId}", arguments = listOf(

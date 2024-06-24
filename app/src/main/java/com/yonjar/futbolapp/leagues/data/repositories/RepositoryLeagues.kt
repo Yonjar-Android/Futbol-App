@@ -2,8 +2,9 @@ package com.yonjar.futbolapp.leagues.data.repositories
 
 import android.util.Log
 import com.yonjar.futbolapp.leagues.data.network.LeagueService
-import com.yonjar.futbolapp.leagues.domain.models.LeagueModel
-import com.yonjar.futbolapp.leagues.domain.models.StandingModel
+import com.yonjar.futbolapp.leagues.domain.models.MatchModel
+import com.yonjar.futbolapp.leagues.domain.models.leagueModels.LeagueModel
+import com.yonjar.futbolapp.leagues.domain.models.leagueModels.StandingModel
 import com.yonjar.futbolapp.leagues.domain.repositories.RepositoryLeagues
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -29,7 +30,7 @@ class RepositoryLeagues @Inject constructor(private val leagueService: LeagueSer
         return null
     }
 
-    override suspend fun getLeagueById(id:Int):LeagueModel?{
+    override suspend fun getLeagueById(id:Int): LeagueModel?{
         runCatching {
             leagueService.getLeagueById(id)
         }.onSuccess {
@@ -72,6 +73,18 @@ class RepositoryLeagues @Inject constructor(private val leagueService: LeagueSer
             }
             return newList
         }.onFailure {
+            Log.i("Error Message","Error: ${it.message}")
+        }
+        return null
+    }
+
+    override suspend fun getMatchesByLeagueId(id: Int?): List<MatchModel>? {
+        runCatching {
+            leagueService.getMatchesByLeagueId(id)
+        }.onSuccess {
+
+            return it.league.toLeagueModel().upcomingMatches
+        }. onFailure {
             Log.i("Error Message","Error: ${it.message}")
         }
         return null

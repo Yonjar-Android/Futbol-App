@@ -1,5 +1,6 @@
 package com.yonjar.futbolapp.leagues.data.network
 
+import com.yonjar.futbolapp.leagues.data.models.leagueModel.LeagueModelResponse
 import com.yonjar.futbolapp.leagues.data.models.leagueModel.LeagueResponse
 import com.yonjar.futbolapp.leagues.data.models.leagueModel.OneLeagueResponse
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.StandingResponse
@@ -24,5 +25,9 @@ interface LeagueService {
         @Query("include") include: String = "participant;stage;group;details.type"
     ): StandingResponse
 
-
+    @GET("leagues/{id}")
+    suspend fun getMatchesByLeagueId(
+        @Path("id") id:Int?,
+        @Query("include") include:String = "upcoming.participants"
+    ): OneLeagueResponse
 }

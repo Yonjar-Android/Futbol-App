@@ -78,7 +78,7 @@ fun ItemView(league: LeagueModel, navController: NavController) {
         }) {
         Column(modifier= Modifier.fillMaxWidth(),horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = league.name,
+                text = league.name ?: "",
                 textAlign = TextAlign.Center,
                 fontFamily = FontFamily.Monospace,
                 fontSize = 25.sp,
