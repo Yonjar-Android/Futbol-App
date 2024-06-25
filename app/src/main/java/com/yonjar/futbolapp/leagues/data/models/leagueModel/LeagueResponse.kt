@@ -20,7 +20,8 @@ data class LeagueModelResponse(
     @SerializedName("image_path") val leagueImage: String,
     @SerializedName("sub_type") val subType:String,
     @SerializedName("currentseason") val currentSeason: CurrentSeasonModelResponse?,
-    @SerializedName("upcoming") val upcomingMatches:List<MatchModelResponse>?
+    @SerializedName("upcoming") val upcomingMatches:List<MatchModelResponse>?,
+    @SerializedName("latest") val latestMatches:List<MatchModelResponse>?
 ) {
 
     fun toLeagueModel(): LeagueModel {
@@ -31,13 +32,21 @@ data class LeagueModelResponse(
             }
         }
 
+        val latestMatchesList:MutableList<MatchModel> = mutableListOf()
+        if(latestMatches?.isNotEmpty() == true){
+            for (n in latestMatches){
+                latestMatchesList.add(n.toMatchModel())
+            }
+        }
+
         return LeagueModel(
             id = id, countryId = countryId,
             name = name,
             leagueImage = leagueImage,
             subType = subType,
             currentSeason = currentSeason?.toCurrentSeasonModel(),
-            upcomingMatches = matchesList
+            upcomingMatches = matchesList,
+            latestMatches = latestMatchesList
         )
     }
 }

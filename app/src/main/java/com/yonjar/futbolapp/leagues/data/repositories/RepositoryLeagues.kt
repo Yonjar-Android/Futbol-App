@@ -78,12 +78,20 @@ class RepositoryLeagues @Inject constructor(private val leagueService: LeagueSer
         return null
     }
 
-    override suspend fun getMatchesByLeagueId(id: Int?): List<MatchModel>? {
+    override suspend fun getMatchesByLeagueId(id: Int?, include:String): List<MatchModel>? {
         runCatching {
-            leagueService.getMatchesByLeagueId(id)
+            leagueService.getMatchesByLeagueId(id,include)
         }.onSuccess {
 
-            return it.league.toLeagueModel().upcomingMatches
+            if(include == "upcoming.participants"){
+                return it.league.toLeagueModel().upcomingMatches
+            }
+
+            else if(include == "latest.participants"){
+                return it.league.toLeagueModel().latestMatches
+            }
+            return null
+
         }. onFailure {
             Log.i("Error Message","Error: ${it.message}")
         }

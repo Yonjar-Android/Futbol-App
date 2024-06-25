@@ -14,6 +14,6 @@ interface RepositoryLeagues {
 
     suspend fun getStandingPlayOffOneBySeasonId(id:Int?):List<StandingModel>?
 
-    suspend fun getMatchesByLeagueId(id:Int?):List<MatchModel>?
+    suspend fun getMatchesByLeagueId(id:Int?, include:String):List<MatchModel>?
 
 }

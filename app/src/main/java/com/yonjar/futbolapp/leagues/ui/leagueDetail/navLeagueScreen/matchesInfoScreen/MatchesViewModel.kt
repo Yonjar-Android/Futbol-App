@@ -10,14 +10,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MatchesViewModel @Inject constructor(val repositoryLeagues: RepositoryLeagues):ViewModel() {
+class MatchesViewModel @Inject constructor(private val repositoryLeagues: RepositoryLeagues):ViewModel() {
     private val _state = MutableStateFlow<MatchesState>(MatchesState.Loading)
     var state: StateFlow<MatchesState> = _state
 
-    fun getMatches(id:Int){
+    fun getMatches(id:Int, type:MatchesTabs){
         viewModelScope.launch {
             try {
-                val response = repositoryLeagues.getMatchesByLeagueId(id)
+                _state.value = MatchesState.Loading
+                val response = when(type){
+                    MatchesTabs.NextMatches -> repositoryLeagues.getMatchesByLeagueId(id,"upcoming.participants")
+                    MatchesTabs.LastsMatches -> repositoryLeagues.getMatchesByLeagueId(id,"latest.participants")
+                }
+
                 if(response != null){
                     _state.value = MatchesState.Success(response)
                 } else{

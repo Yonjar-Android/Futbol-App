@@ -10,5 +10,6 @@ data class LeagueModel(
     val leagueImage: String?,
     val subType:String?,
     val currentSeason: CurrentSeasonModel?,
-    val upcomingMatches:List<MatchModel>?
+    val upcomingMatches:List<MatchModel>?,
+    val latestMatches:List<MatchModel>?
 )
