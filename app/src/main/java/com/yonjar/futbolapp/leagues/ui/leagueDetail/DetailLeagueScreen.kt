@@ -157,6 +157,7 @@ fun MyBottomTeamNavigation(navigationController: NavController) {
         }, label = { Text(text = "Play-Offs") })
 
         NavigationBarItem(selected = index == 2, onClick = {
+            index = 2
             navigationController.navigate("MatchesInfoScreen")
         }, icon = {
             Icon(imageVector = Icons.Filled.Face, contentDescription = "Matches of the League")
