@@ -114,6 +114,14 @@ fun SuccessFun(
                 items(currentState.matchesState) { matchInfo ->
                     MatchItem(matchInfo)
                 }
+            } else {
+                item {
+                    Column(modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(text = "There's no more games this season")
+                    }
+                }
             }
         }
     }
@@ -192,6 +200,11 @@ fun MatchItem(matchInfo: MatchModel) {
                 Text(
                     text = matchInfo.result,
                     fontSize = 18.sp,
+                    fontWeight = FontWeight.Light
+                )
+                Text(
+                    text = matchInfo.date,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Light
                 )
             }
