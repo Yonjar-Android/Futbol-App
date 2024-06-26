@@ -42,7 +42,7 @@ fun PlayOffInfoScreen(state: DetailLeagueState.Success, navController: NavHostCo
                 ) {
                     if(state.playOffStandings!!.isNotEmpty()){
                         Text(
-                            text = if (state.playOffStandings?.get(0)?.stage?.nameStage == "Championship Round") {
+                            text = if (state.playOffStandings[0].stage?.nameStage == "Championship Round") {
                                 "Championship Round"
                             } else {
                                 "Championship Group"
@@ -78,7 +78,7 @@ fun PlayOffInfoScreen(state: DetailLeagueState.Success, navController: NavHostCo
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = if (state.playOffStandings?.get(0)?.stage?.nameStage == "Championship Round") {
+                            text = if (state.playOffStandings[0].stage?.nameStage == "Championship Round") {
                                 "Relegation Round"
                             } else {
                                 "Relegation Group"

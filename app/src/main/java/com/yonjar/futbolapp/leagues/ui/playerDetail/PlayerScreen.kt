@@ -3,7 +3,6 @@ package com.yonjar.futbolapp.leagues.ui.playerDetail
 import android.content.Context
 import android.os.Build
 import android.widget.Toast
-import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
