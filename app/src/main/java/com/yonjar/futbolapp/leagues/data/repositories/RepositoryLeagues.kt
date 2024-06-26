@@ -87,7 +87,7 @@ class RepositoryLeagues @Inject constructor(private val leagueService: LeagueSer
                 return it.league.toLeagueModel().upcomingMatches
             }
 
-            else if(include == "latest.participants"){
+            else if(include == "latest.participants;latest.scores"){
                 return it.league.toLeagueModel().latestMatches
             }
             return null

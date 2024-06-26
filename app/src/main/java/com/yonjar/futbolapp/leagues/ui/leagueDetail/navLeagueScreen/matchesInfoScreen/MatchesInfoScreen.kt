@@ -3,8 +3,8 @@ package com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.matchesInfo
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -28,7 +29,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.yonjar.futbolapp.leagues.domain.models.MatchModel
-import com.yonjar.futbolapp.leagues.ui.leagueDetail.LoadingFun
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -122,6 +121,16 @@ fun SuccessFun(
 }
 
 @Composable
+fun LoadingFun() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
 fun ErrorFun(currentState: MatchesState.Error, context: Context) {
     Toast.makeText(context, currentState.errorMessage, Toast.LENGTH_SHORT).show()
 }
@@ -149,20 +158,48 @@ fun MatchItem(matchInfo: MatchModel) {
                 modifier = Modifier.size(100.dp)
             )
         }
-        if(matchInfo.result?.isNotBlank() == true){
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
-                horizontalArrangement = Arrangement.Center
+        if (matchInfo.result?.isNotBlank() == true) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 6.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 6.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Text(
+                        text = matchInfo.goalsHome.toString(),
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Light
+                    )
+                    Text(
+                        text = "-",
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Light
+                    )
+                    Text(
+                        text = matchInfo.goalsAway.toString(),
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Light
+                    )
+                }
+
                 Text(
                     text = matchInfo.result,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Light
                 )
             }
-        }else{
+        } else {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 6.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
