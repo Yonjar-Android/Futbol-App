@@ -26,7 +26,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -36,7 +35,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -50,13 +49,13 @@ import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.matchesInfoS
 fun DetailLeagueScreen(
     leagueId: Int,
     detailLeagueViewModel: DetailLeagueViewModel,
-    navController: NavController,
+    navController: NavHostController,
     matchesViewModel: MatchesViewModel
 ) {
     val state = detailLeagueViewModel.state.collectAsState()
     val context = LocalContext.current
     var rememberNumber by rememberSaveable {
-        mutableStateOf(0)
+        mutableIntStateOf(0)
     }
 
     if(leagueId != rememberNumber){
@@ -90,7 +89,7 @@ fun DetailLeagueScreen(
 @Composable
 fun SuccessFun(
     state: DetailLeagueState.Success,
-    navController: NavController,
+    navController: NavHostController,
     matchesViewModel: MatchesViewModel
 ) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -125,7 +124,7 @@ fun ErrorFun(error: DetailLeagueState.Error, context: Context) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyTopLeagueBar(navController: NavController) {
+fun MyTopLeagueBar(navController: NavHostController) {
     TopAppBar(title = { Text(text = "League") }, navigationIcon = {
         IconButton(onClick = { navController.navigateUp() }) {
             Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -134,7 +133,7 @@ fun MyTopLeagueBar(navController: NavController) {
 }
 
 @Composable
-fun MyBottomTeamNavigation(navigationController: NavController) {
+fun MyBottomTeamNavigation(navigationController: NavHostController) {
 
     var index by rememberSaveable {
         mutableIntStateOf(0)
@@ -168,7 +167,7 @@ fun MyBottomTeamNavigation(navigationController: NavController) {
 @Composable
 fun MyLeagueScaffold(
     state: DetailLeagueState.Success,
-    navController: NavController,
+    navController: NavHostController,
     matchesViewModel: MatchesViewModel
 ) {
     val navigationController = rememberNavController()
@@ -186,7 +185,7 @@ fun MyLeagueScaffold(
                     )
                 }
                 composable(route = "MatchesInfoScreen"){
-                    MatchesInfoScreen(matchesViewModel, navController, state.league.id)
+                    MatchesInfoScreen(matchesViewModel, state.league.id)
                 }
             }
 

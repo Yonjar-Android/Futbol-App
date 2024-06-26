@@ -26,13 +26,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.yonjar.futbolapp.leagues.domain.models.leagueModels.LeagueModel
 
 @Composable
 
-fun LeaguesScreen(leaguesViewModel: LeaguesViewModel, navController: NavController) {
+fun LeaguesScreen(leaguesViewModel: LeaguesViewModel, navController: NavHostController) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text = "European Leagues", fontSize = 30.sp, fontWeight = FontWeight.SemiBold)
         MyListTest(leaguesViewModel, navController)
@@ -40,7 +40,7 @@ fun LeaguesScreen(leaguesViewModel: LeaguesViewModel, navController: NavControll
 }
 
 @Composable
-fun MyListTest(leaguesViewModel: LeaguesViewModel, navController: NavController) {
+fun MyListTest(leaguesViewModel: LeaguesViewModel, navController: NavHostController) {
     val state = leaguesViewModel.state.collectAsState()
     val context = LocalContext.current
 
@@ -69,7 +69,7 @@ fun MyListTest(leaguesViewModel: LeaguesViewModel, navController: NavController)
 }
 
 @Composable
-fun ItemView(league: LeagueModel, navController: NavController) {
+fun ItemView(league: LeagueModel, navController: NavHostController) {
     Card(modifier= Modifier
         .fillMaxWidth()
         .padding(vertical = 5.dp)

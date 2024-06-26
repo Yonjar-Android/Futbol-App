@@ -33,7 +33,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.yonjar.futbolapp.leagues.domain.models.MatchModel
 import kotlinx.coroutines.launch
@@ -42,7 +41,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun MatchesInfoScreen(
     matchesViewModel: MatchesViewModel,
-    navController: NavController,
     leagueId: Int
 ) {
     val state = matchesViewModel.state.collectAsState()

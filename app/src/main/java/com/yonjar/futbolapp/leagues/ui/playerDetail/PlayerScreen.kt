@@ -36,7 +36,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -177,7 +176,7 @@ fun MyPlayerScaffold(
 }
 
 @Composable
-fun MyBottomPlayerNavigation(navigationController: NavController) {
+fun MyBottomPlayerNavigation(navigationController: NavHostController) {
 
     var index by rememberSaveable {
         mutableIntStateOf(0)

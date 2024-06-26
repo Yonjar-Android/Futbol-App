@@ -16,13 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.yonjar.futbolapp.leagues.domain.models.leagueModels.StandingModel
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.DetailLeagueState
 
 @Composable
-fun LeagueInfoScreen(state: DetailLeagueState.Success,navController:NavController){
+fun LeagueInfoScreen(state: DetailLeagueState.Success,navController:NavHostController){
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -38,7 +38,7 @@ fun LeagueInfoScreen(state: DetailLeagueState.Success,navController:NavControlle
 }
 
 @Composable
-fun TeamRow(teamStanding: StandingModel, navController: NavController) {
+fun TeamRow(teamStanding: StandingModel, navController: NavHostController) {
     Row(modifier = Modifier
         .fillMaxWidth()
         .padding(vertical = 4.dp)
