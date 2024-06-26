@@ -1,6 +1,7 @@
 package com.yonjar.futbolapp.leagues.ui.playerDetail.navPlayerScreen
 
 import android.os.Build
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.yonjar.futbolapp.leagues.ui.playerDetail.PlayerState
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.RowItem
@@ -24,8 +26,9 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun NavPlayerInfoScreen(
     currentState: PlayerState.Success,
+    navHostController: NavHostController
 ) {
-    println(currentState.player.playerId)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -64,6 +67,9 @@ fun NavPlayerInfoScreen(
                 )
             }
         }
+    }
+    BackHandler {
+        navHostController.navigateUp()
     }
 }
 

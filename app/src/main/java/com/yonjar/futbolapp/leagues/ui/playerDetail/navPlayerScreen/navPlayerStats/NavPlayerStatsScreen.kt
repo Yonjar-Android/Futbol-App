@@ -2,6 +2,7 @@ package com.yonjar.futbolapp.leagues.ui.playerDetail.navPlayerScreen.navPlayerSt
 
 import android.content.Context
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.yonjar.futbolapp.leagues.ui.playerDetail.LoadingFun
 import com.yonjar.futbolapp.leagues.ui.playerDetail.PlayerState
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.RowItem
@@ -23,7 +25,8 @@ import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.RowItem
 fun NavPlayerStatsScreen(
     state: PlayerState.Success,
     playerStatsViewModel: NavPlayerStatsViewModel,
-    currentSeasonId: Int
+    currentSeasonId: Int,
+    navHostController: NavHostController
 ) {
 
     LaunchedEffect(state.player.playerId) {
@@ -46,6 +49,10 @@ fun NavPlayerStatsScreen(
             NavPlayerStatsState.Loading -> LoadingFun()
             is NavPlayerStatsState.Success -> SuccessFun(currentState)
         }
+    }
+
+    BackHandler {
+        navHostController.navigateUp()
     }
 }
 

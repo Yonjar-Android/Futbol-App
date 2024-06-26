@@ -1,5 +1,6 @@
 package com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,11 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.TeamsScreenState
 
 @Composable
-fun InfoTeamScreen(state: TeamsScreenState.Success) {
+fun InfoTeamScreen(state: TeamsScreenState.Success, navHostController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -67,6 +69,10 @@ fun InfoTeamScreen(state: TeamsScreenState.Success) {
             }
         }
 
+    }
+
+    BackHandler {
+        navHostController.navigateUp()
     }
 }
 

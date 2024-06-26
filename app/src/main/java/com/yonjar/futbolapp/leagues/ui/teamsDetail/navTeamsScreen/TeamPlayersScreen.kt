@@ -1,5 +1,6 @@
 package com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -39,6 +40,10 @@ fun TeamPlayersScreen(state: TeamsScreenState.Success, navController: NavHostCon
                 PlayerItem(it.player, navController, state.team.currentSeasonId ?: 0)
             }
         }
+    }
+
+    BackHandler {
+        navController.navigateUp()
     }
 }
 

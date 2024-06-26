@@ -3,6 +3,7 @@ package com.yonjar.futbolapp.leagues.ui.playerDetail
 import android.content.Context
 import android.os.Build
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -79,9 +80,9 @@ fun PlayerScreen(
                     PlayerState.Loading -> LoadingFun()
                     is PlayerState.Success -> SuccessFun(
                         currentState,
-                        navHostController,
                         playerStatsViewModel,
-                        currentSeasonId
+                        currentSeasonId,
+                        navHostController
                     )
                 }
             }
@@ -93,9 +94,9 @@ fun PlayerScreen(
 @Composable
 fun SuccessFun(
     currentState: PlayerState.Success,
-    navController: NavHostController,
     playerStatsViewModel: NavPlayerStatsViewModel,
-    currentSeasonId:Int
+    currentSeasonId:Int,
+    navHostController: NavHostController
 ) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         AsyncImage(
@@ -118,7 +119,8 @@ fun SuccessFun(
         MyPlayerScaffold(
             currentState = currentState,
             playerStatsViewModel = playerStatsViewModel,
-            currentSeasonId = currentSeasonId
+            currentSeasonId = currentSeasonId,
+            navHostController = navHostController
         )
     }
 }
@@ -148,7 +150,8 @@ fun MyTopPlayerAppBar(navController: NavHostController) {
 fun MyPlayerScaffold(
     currentState: PlayerState.Success,
     playerStatsViewModel: NavPlayerStatsViewModel,
-    currentSeasonId: Int
+    currentSeasonId: Int,
+    navHostController: NavHostController
 ) {
     val navigationController = rememberNavController()
 
@@ -159,13 +162,14 @@ fun MyPlayerScaffold(
                 modifier = Modifier.padding(it)
             ) {
                 composable(route = "NavPlayerInfoScreen") {
-                    NavPlayerInfoScreen(currentState)
+                    NavPlayerInfoScreen(currentState,navHostController)
                 }
                 composable(route = "NavPlayerStatsScreen") {
                     NavPlayerStatsScreen(
                         state = currentState,
                         playerStatsViewModel = playerStatsViewModel,
-                        currentSeasonId = currentSeasonId
+                        currentSeasonId = currentSeasonId,
+                        navHostController = navHostController
                     )
                 }
             }

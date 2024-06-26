@@ -2,6 +2,7 @@ package com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.matchesInfo
 
 import android.content.Context
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,6 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.yonjar.futbolapp.leagues.domain.models.MatchModel
 import kotlinx.coroutines.launch
@@ -41,7 +43,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun MatchesInfoScreen(
     matchesViewModel: MatchesViewModel,
-    leagueId: Int
+    leagueId: Int,
+    navHostController: NavHostController
 ) {
     val state = matchesViewModel.state.collectAsState()
     val context = LocalContext.current
@@ -93,7 +96,9 @@ fun MatchesInfoScreen(
             }
         }
     )
-
+BackHandler {
+    navHostController.navigateUp()
+}
 }
 
 @OptIn(ExperimentalFoundationApi::class)

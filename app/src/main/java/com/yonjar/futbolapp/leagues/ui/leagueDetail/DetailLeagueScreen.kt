@@ -185,7 +185,7 @@ fun MyLeagueScaffold(
                     )
                 }
                 composable(route = "MatchesInfoScreen"){
-                    MatchesInfoScreen(matchesViewModel, state.league.id)
+                    MatchesInfoScreen(matchesViewModel, state.league.id, navController)
                 }
             }
 

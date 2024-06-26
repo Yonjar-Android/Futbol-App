@@ -1,5 +1,6 @@
 package com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -59,6 +60,10 @@ fun TeamRow(teamStanding: StandingModel, navController: NavHostController) {
         Text(teamStanding.details.draws.toString(), modifier = Modifier.weight(1f))
         Text(teamStanding.details.losses.toString(), modifier = Modifier.weight(1f))
         Text(teamStanding.points.toString(), modifier = Modifier.weight(1f))
+    }
+
+    BackHandler {
+        navController.navigateUp()
     }
 }
 

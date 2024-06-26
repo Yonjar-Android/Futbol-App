@@ -1,5 +1,6 @@
 package com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -103,5 +104,9 @@ fun PlayOffInfoScreen(state: DetailLeagueState.Success, navController: NavHostCo
                 Text(text = "There is no play-offs yet in the competition")
             }
         }
+    }
+
+    BackHandler {
+        navController.navigateUp()
     }
 }

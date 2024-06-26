@@ -135,7 +135,7 @@ fun SimpleScaffold(state: TeamsScreenState.Success, navController: NavHostContro
                 navController = navigationController, startDestination = "InfoTeamScreen",
                 modifier = Modifier.padding(it)
             ) {
-                composable(route = "InfoTeamScreen") { InfoTeamScreen(state) }
+                composable(route = "InfoTeamScreen") { InfoTeamScreen(state, navController) }
                 composable(route = "TeamPlayersScreen") { TeamPlayersScreen(state, navController) }
             }
 
