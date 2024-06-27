@@ -4,7 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class ScoresResponseModel(
     @SerializedName("id") val id:Int,
-    @SerializedName("score") val score:ScoreData?
+    @SerializedName("score") val score:ScoreData?,
+    @SerializedName("description") val description:String?
 )
 
 data class ScoreData(

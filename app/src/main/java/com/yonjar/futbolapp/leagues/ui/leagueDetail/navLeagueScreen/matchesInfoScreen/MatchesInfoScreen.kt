@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -217,25 +218,22 @@ fun MatchItem(matchInfo: MatchModel) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 6.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     if (matchInfo.goalMinutes?.isNotEmpty() == true) {
-                        Column {
+                        Column(modifier = Modifier.weight(1f)) {
                             for (n in matchInfo.goalMinutes) {
                                 if (matchInfo.teamHome?.id == n.participant) {
-                                    Row {
-                                        Text(text = n.player ?: "", modifier = Modifier.padding(horizontal = 5.dp))
-                                        Text(text = n.minute.toString())
+                                    Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
+                                        Text(text = "${n.player} ${n.minute.toString()}", textAlign = TextAlign.Center)
                                     }
                                 }
                             }
                         }
-                        Column {
+                        Column(modifier = Modifier.weight(1f)) {
                             for (n in matchInfo.goalMinutes) {
                                 if (matchInfo.teamAway?.id == n.participant) {
-                                    Row {
-                                        Text(text = n.player ?: "", modifier = Modifier.padding(horizontal = 5.dp))
-                                        Text(text = n.minute.toString())
+                                    Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
+                                        Text(text = "${n.player} ${n.minute.toString()}", textAlign = TextAlign.Center)
                                     }
                                 }
                             }
