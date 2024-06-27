@@ -20,7 +20,7 @@ class MatchesViewModel @Inject constructor(private val repositoryLeagues: Reposi
                 _state.value = MatchesState.Loading
                 val response = when(type){
                     MatchesTabs.NextMatches -> repositoryLeagues.getMatchesByLeagueId(id,"upcoming.participants")
-                    MatchesTabs.LastsMatches -> repositoryLeagues.getMatchesByLeagueId(id,"latest.participants;latest.scores")
+                    MatchesTabs.LastsMatches -> repositoryLeagues.getMatchesByLeagueId(id,"latest.participants;latest.scores;latest.events")
                 }
 
                 if(response != null){

@@ -96,9 +96,9 @@ fun MatchesInfoScreen(
             }
         }
     )
-BackHandler {
-    navHostController.navigateUp()
-}
+    BackHandler {
+        navHostController.navigateUp()
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -119,7 +119,8 @@ fun SuccessFun(
                 }
             } else {
                 item {
-                    Column(modifier = Modifier.fillMaxWidth(),
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(text = "There's no more games this season")
@@ -152,6 +153,19 @@ fun MatchItem(matchInfo: MatchModel) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Text(text = matchInfo.name, fontSize = 24.sp, fontWeight = FontWeight.SemiBold)
         }
+
+        if (matchInfo.result?.isNotBlank() == true){
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
+                Text(
+                    text = matchInfo.date,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Light,
+                    modifier = Modifier.padding(vertical = 5.dp)
+                )
+            }
+        }
+
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround,
@@ -199,17 +213,35 @@ fun MatchItem(matchInfo: MatchModel) {
                         fontWeight = FontWeight.Light
                     )
                 }
-
-                Text(
-                    text = matchInfo.result,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Light
-                )
-                Text(
-                    text = matchInfo.date,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Light
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 6.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    if (matchInfo.goalMinutes?.isNotEmpty() == true) {
+                        Column {
+                            for (n in matchInfo.goalMinutes) {
+                                if (matchInfo.teamHome?.id == n.participant) {
+                                    Row {
+                                        Text(text = n.player ?: "", modifier = Modifier.padding(horizontal = 5.dp))
+                                        Text(text = n.minute.toString())
+                                    }
+                                }
+                            }
+                        }
+                        Column {
+                            for (n in matchInfo.goalMinutes) {
+                                if (matchInfo.teamAway?.id == n.participant) {
+                                    Row {
+                                        Text(text = n.player ?: "", modifier = Modifier.padding(horizontal = 5.dp))
+                                        Text(text = n.minute.toString())
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         } else {
             Row(

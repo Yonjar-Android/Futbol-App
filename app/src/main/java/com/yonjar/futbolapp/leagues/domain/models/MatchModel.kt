@@ -10,5 +10,6 @@ data class MatchModel(
     val teamHome:TeamModel?,
     val teamAway:TeamModel?,
     val goalsHome:Int? = 0,
-    val goalsAway:Int? = 0
+    val goalsAway:Int? = 0,
+    val goalMinutes:List<EventModel>?
 )
