@@ -12,11 +12,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.yonjar.futbolapp.R
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.TeamsScreenState
 
 @Composable
@@ -37,22 +39,22 @@ fun InfoTeamScreen(state: TeamsScreenState.Success, navHostController: NavHostCo
         )
 
         RowItem(
-            firstTitle = "Nombre del equipo",
-            secondTitle = "Año de fundación",
+            firstTitle = stringResource(id = R.string.teamName_str),
+            secondTitle = stringResource(id = R.string.foundation_str),
             value1 = state.team.name ?: "",
             value2 = state.team.yearFounded.toString()
         )
 
         RowItem(
-            firstTitle = "Country",
-            secondTitle = "City",
+            firstTitle = stringResource(id = R.string.country_str),
+            secondTitle = stringResource(id = R.string.city_str),
             value1 = state.team.countryName ?: "",
             value2 = state.team.cityName ?: ""
         )
 
         Row(modifier = Modifier.fillMaxWidth()) {
             Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
-                Text(text = "Estadio", fontWeight = FontWeight.Bold)
+                Text(text = stringResource(id = R.string.stadium_str), fontWeight = FontWeight.Bold)
                 Text(text = state.team.stadiumName ?: "")
                 
                 if(state.team.stadiumImage != null){

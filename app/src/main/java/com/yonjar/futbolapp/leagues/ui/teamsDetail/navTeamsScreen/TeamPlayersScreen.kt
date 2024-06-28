@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,7 +34,7 @@ fun TeamPlayersScreen(state: TeamsScreenState.Success, navController: NavHostCon
         horizontalAlignment = Alignment.CenterHorizontally
 
     ) {
-        Text(text = "Plantilla", fontSize = 30.sp, modifier = Modifier.padding(vertical = 8.dp))
+        Text(text = stringResource(id = R.string.squad_str), fontSize = 30.sp, modifier = Modifier.padding(vertical = 8.dp))
 
         LazyColumn{
             items(state.squadList) {

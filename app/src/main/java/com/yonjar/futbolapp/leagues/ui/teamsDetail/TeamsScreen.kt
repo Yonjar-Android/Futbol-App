@@ -29,10 +29,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.yonjar.futbolapp.R
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.InfoTeamScreen
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.TeamPlayersScreen
 
@@ -104,7 +106,7 @@ fun MyBottomTeamNavigation(navigationController: NavHostController) {
             navigationController.navigate("InfoTeamScreen")
         }, icon = {
             Icon(imageVector = Icons.Filled.Info, contentDescription = "Team Info")
-        }, label = { Text(text = "Team Info") })
+        }, label = { Text(text = stringResource(id = R.string.data_str)) })
 
 
         NavigationBarItem(selected = index == 1, onClick = {
@@ -112,14 +114,14 @@ fun MyBottomTeamNavigation(navigationController: NavHostController) {
             navigationController.navigate("TeamPlayersScreen")
         }, icon = {
             Icon(imageVector = Icons.Filled.Person, contentDescription = "Players")
-        }, label = { Text(text = "Players") })
+        }, label = { Text(text = stringResource(id = R.string.squad_str)) })
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTopTeamAppBar(navController: NavHostController) {
-    TopAppBar(title = { Text(text = "Team Information") }, navigationIcon = {
+    TopAppBar(title = { Text(text = stringResource(id = R.string.teamInfo_str)) }, navigationIcon = {
         IconButton(onClick = { navController.navigateUp() }) {
             Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
         }

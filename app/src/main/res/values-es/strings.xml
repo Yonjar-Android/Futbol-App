@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FutbolApp</string>
+
+    <string name="european_leagues">Ligas Europeas</string>
+    <string name="league_str">Liga</string>
+    <string name="playOffs_str">Eliminatorias</string>
+    <string name="season_str">Temporada</string>
+
+    <string name="data_str">Datos</string>
+
+    <string name="matches_str">Partidos</string>
+    <string name="lastMatches_str">Últimos partidos</string>
+    <string name="nextMatches_str">Próximos partidos</string>
+
+    <string name="team_str">Equipo</string>
+    <string name="teamInfo_str">Información del equipo</string>
+
+    <string name="foundation_str">Año de fundación</string>
+    <string name="country_str">País</string>
+    <string name="city_str">Ciudad</string>
+    <string name="teamName_str">Nombre del equipo</string>
+    <string name="stadium_str">Estadio</string>
+
+    <string name="squad_str">Plantilla</string>
+
+    Player Strings
+
+    <string name="age_str">Edad</string>
+    <string name="dateOfBirth_str">Fecha de nacimiento</string>
+    <string name="weight_str">Peso</string>
+    <string name="height_str">Estatura</string>
+    <string name="nationality_str">Nacionalidad</string>
+    <string name="position_str">Posición</string>
+    <string name="detailedPosition_str">Posición detallada</string>
+    <string name="playerInfo_str">Información del jugador</string>
+
+    <string name="statsMessage_str">Aún no hay estadísticas en la presente temporada</string>
+    <string name="playOffMessage_str">Todavía no hay eliminatorias en la presente temporada</string>
+</resources>

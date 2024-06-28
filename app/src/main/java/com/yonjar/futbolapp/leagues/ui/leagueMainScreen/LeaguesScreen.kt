@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -28,13 +29,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.yonjar.futbolapp.R
 import com.yonjar.futbolapp.leagues.domain.models.leagueModels.LeagueModel
 
 @Composable
 
 fun LeaguesScreen(leaguesViewModel: LeaguesViewModel, navController: NavHostController) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "European Leagues", fontSize = 30.sp, fontWeight = FontWeight.SemiBold)
+        Text(text = stringResource(id = R.string.european_leagues), fontSize = 30.sp, fontWeight = FontWeight.SemiBold)
         MyListTest(leaguesViewModel, navController)
     }
 }

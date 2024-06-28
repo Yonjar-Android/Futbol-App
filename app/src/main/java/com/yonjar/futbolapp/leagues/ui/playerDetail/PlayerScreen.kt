@@ -33,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -137,7 +138,7 @@ fun ErrorFun(currentState: PlayerState.Error, context: Context) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTopPlayerAppBar(navController: NavHostController) {
-    TopAppBar(title = { Text(text = "Player Information") }, navigationIcon = {
+    TopAppBar(title = { Text(text = stringResource(id = R.string.playerInfo_str)) }, navigationIcon = {
         IconButton(onClick = { navController.navigateUp() }) {
             Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
         }
@@ -191,7 +192,7 @@ fun MyBottomPlayerNavigation(navigationController: NavHostController) {
             navigationController.navigate("NavPlayerInfoScreen")
         }, icon = {
             Icon(imageVector = Icons.Filled.Info, contentDescription = "Player Information")
-        }, label = { Text(text = "Info") })
+        }, label = { Text(text = stringResource(id = R.string.data_str)) })
 
 
         NavigationBarItem(selected = index == 1, onClick = {

@@ -14,8 +14,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.yonjar.futbolapp.R
 import com.yonjar.futbolapp.leagues.ui.playerDetail.LoadingFun
 import com.yonjar.futbolapp.leagues.ui.playerDetail.PlayerState
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.RowItem
@@ -62,10 +65,11 @@ fun SuccessFun(currentState: NavPlayerStatsState.Success) {
         modifier = Modifier
             .fillMaxSize()
             .padding(15.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         if(currentState.list.statisticList.isEmpty()){
-            Text(text = "There's no stats yet this season")
+            Text(text = stringResource(id = R.string.statsMessage_str), textAlign = TextAlign.Center)
         }
         for (n in 0 until currentState.list.statisticList.size step 2) {
             if (n + 1 < currentState.list.statisticList.size) {

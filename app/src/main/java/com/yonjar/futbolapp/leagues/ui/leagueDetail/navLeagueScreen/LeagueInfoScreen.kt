@@ -15,10 +15,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.yonjar.futbolapp.R
 import com.yonjar.futbolapp.leagues.domain.models.leagueModels.StandingModel
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.DetailLeagueState
 
@@ -75,7 +77,7 @@ fun TableStanding(){
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text("Logo", modifier = Modifier.weight(1f), fontWeight = FontWeight.Bold)
-        Text("Team", modifier = Modifier.weight(3f), fontWeight = FontWeight.Bold)
+        Text(stringResource(id = R.string.team_str), modifier = Modifier.weight(3f), fontWeight = FontWeight.Bold)
         Text("W", modifier = Modifier.weight(1f), fontWeight = FontWeight.Bold)
         Text("D", modifier = Modifier.weight(1f), fontWeight = FontWeight.Bold)
         Text("L", modifier = Modifier.weight(1f), fontWeight = FontWeight.Bold)

@@ -83,7 +83,7 @@ fun MatchesInfoScreen(
                             }
                         },
                             text = {
-                                Text(text = matchesTabs.text)
+                                Text(text = matchesTabs.getText())
                             }
                         )
                     }

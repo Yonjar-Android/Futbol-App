@@ -12,10 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.yonjar.futbolapp.R
 import com.yonjar.futbolapp.leagues.ui.playerDetail.PlayerState
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.RowItem
 import java.time.LocalDate
@@ -37,29 +39,29 @@ fun NavPlayerInfoScreen(
 
     ) {
         RowItem(
-            firstTitle = "Edad",
-            secondTitle = "Fecha de nacimiento",
+            firstTitle = stringResource(id = R.string.age_str),
+            secondTitle = stringResource(id = R.string.dateOfBirth_str),
             value1 = calcularEdad(currentState.player.dateOfBirth ?: "").toString(),
             value2 = currentState.player.dateOfBirth ?: ""
         )
 
         RowItem(
-            firstTitle = "Estatura",
-            secondTitle = "Peso",
+            firstTitle = stringResource(id = R.string.height_str),
+            secondTitle = stringResource(id = R.string.weight_str),
             value1 = currentState.player.height.toString(),
             value2 = currentState.player.weight.toString()
         )
 
         RowItem(
-            firstTitle = "Posición",
-            secondTitle = "Posición específica",
+            firstTitle = stringResource(id = R.string.position_str),
+            secondTitle = stringResource(id = R.string.detailedPosition_str),
             value1 = currentState.player.position ?: "Undefined",
             value2 = currentState.player.detailedPosition ?: "Undefined"
         )
 
         Row(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.fillMaxWidth(),horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "Nacionalidad", fontWeight = FontWeight.Bold)
+                Text(text = stringResource(id = R.string.nationality_str), fontWeight = FontWeight.Bold)
                 Text(text = currentState.player.nationality ?: "")
                 AsyncImage(
                     model = currentState.player.countryFlag,

@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,6 +41,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.yonjar.futbolapp.R
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.LeagueInfoScreen
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.PlayOffInfoScreen
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.matchesInfoScreen.MatchesInfoScreen
@@ -101,7 +103,7 @@ fun SuccessFun(
                 .padding(horizontal = 5.dp)
         )
         Text(
-            text = "Temporada: ${state.league.currentSeason?.name}",
+            text = "${stringResource(id = R.string.season_str)}: ${state.league.currentSeason?.name}",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 8.dp),
@@ -125,7 +127,7 @@ fun ErrorFun(error: DetailLeagueState.Error, context: Context) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTopLeagueBar(navController: NavHostController) {
-    TopAppBar(title = { Text(text = "League") }, navigationIcon = {
+    TopAppBar(title = { Text(text = stringResource(id = R.string.league_str)) }, navigationIcon = {
         IconButton(onClick = { navController.navigateUp() }) {
             Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
         }
@@ -145,7 +147,7 @@ fun MyBottomTeamNavigation(navigationController: NavHostController) {
             navigationController.navigate("LeagueInfoScreen")
         }, icon = {
             Icon(imageVector = Icons.Filled.Info, contentDescription = "Regular Season Screen")
-        }, label = { Text(text = "Temporada") })
+        }, label = { Text(text = stringResource(id = R.string.season_str)) })
 
 
         NavigationBarItem(selected = index == 1, onClick = {
@@ -153,14 +155,14 @@ fun MyBottomTeamNavigation(navigationController: NavHostController) {
             navigationController.navigate("PlayOffInfoScreen")
         }, icon = {
             Icon(imageVector = Icons.Filled.Person, contentDescription = "Play-Offs Screen")
-        }, label = { Text(text = "Play-Offs") })
+        }, label = { Text(text = stringResource(id = R.string.playOffs_str)) })
 
         NavigationBarItem(selected = index == 2, onClick = {
             index = 2
             navigationController.navigate("MatchesInfoScreen")
         }, icon = {
             Icon(imageVector = Icons.Filled.Face, contentDescription = "Matches of the League")
-        }, label = { Text(text = "Matches")})
+        }, label = { Text(text = stringResource(id = R.string.matches_str))})
     }
 }
 
