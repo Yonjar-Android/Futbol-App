@@ -13,22 +13,32 @@ import javax.inject.Inject
 class NavPlayerStatsViewModel @Inject
 constructor(private val repositoryTeams: RepositoryTeams)
     : ViewModel() {
+
     private val _state = MutableStateFlow<NavPlayerStatsState>(NavPlayerStatsState.Loading)
     var state: StateFlow<NavPlayerStatsState> = _state
-    fun getPlayerStatistics(playerId: Int, currentSeasonId:Int) {
+
+    private var actualPlayer:Int = 0
+
+    fun getPlayerStatistics(playerId: Int, currentSeasonId: Int) {
+        if (actualPlayer == playerId) return
         viewModelScope.launch {
             _state.value = NavPlayerStatsState.Loading
             try {
-                val response = repositoryTeams.getPlayerStatistics(playerId,currentSeasonId)
-                if(response != null){
+                val response = repositoryTeams.getPlayerStatistics(playerId, currentSeasonId)
+                if (response != null) {
                     _state.value = NavPlayerStatsState.Success(response)
-                } else{
+                    actualPlayer = playerId
+                } else {
                     _state.value = NavPlayerStatsState.Error("Response was null")
                 }
-            } catch (e:Exception){
+            } catch (e: Exception) {
                 _state.value = NavPlayerStatsState.Error(e.message ?: "")
             }
         }
+    }
+
+    fun areStatsLoaded(): Int {
+        return actualPlayer
     }
 
 }

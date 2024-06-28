@@ -32,14 +32,14 @@ fun NavPlayerStatsScreen(
     navHostController: NavHostController
 ) {
 
-    LaunchedEffect(state.player.playerId) {
-        playerStatsViewModel.getPlayerStatistics(state.player.playerId, currentSeasonId)
+    if(playerStatsViewModel.areStatsLoaded() != state.player.playerId){
+        LaunchedEffect(state.player.playerId) {
+            playerStatsViewModel.getPlayerStatistics(state.player.playerId, currentSeasonId)
+        }
     }
 
-    val state = playerStatsViewModel.state.collectAsState()
+    val stateC = playerStatsViewModel.state.collectAsState()
     val context = LocalContext.current
-
-
 
     Column(
         modifier = Modifier
@@ -47,7 +47,7 @@ fun NavPlayerStatsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        when (val currentState = state.value) {
+        when (val currentState = stateC.value) {
             is NavPlayerStatsState.Error -> ErrorFun(currentState, context)
             NavPlayerStatsState.Loading -> LoadingFun()
             is NavPlayerStatsState.Success -> SuccessFun(currentState)
