@@ -23,6 +23,7 @@ data class MatchModelResponse(
                 if (events[n].addition?.contains("Goal") == true
                     && events[n].addition?.contains("Goal confirmed") == false
                     && events[n].addition?.contains("Goal Disallowed") == false
+                    && events[n].addition?.contains("Goal Under Review") == false
                 ) {
                     goalsListMinutes.add(events[n].toEventModel())
                 }
