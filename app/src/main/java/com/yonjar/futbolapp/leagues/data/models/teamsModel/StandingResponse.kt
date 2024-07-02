@@ -60,6 +60,4 @@ data class StandingModelResponse(
             details = standingModel
         )
     }
-
-
 }

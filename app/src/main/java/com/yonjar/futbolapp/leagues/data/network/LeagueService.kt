@@ -1,6 +1,5 @@
 package com.yonjar.futbolapp.leagues.data.network
 
-import com.yonjar.futbolapp.leagues.data.models.leagueModel.LeagueModelResponse
 import com.yonjar.futbolapp.leagues.data.models.leagueModel.LeagueResponse
 import com.yonjar.futbolapp.leagues.data.models.leagueModel.OneLeagueResponse
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.StandingResponse

@@ -1,6 +1,5 @@
 package com.yonjar.futbolapp.leagues.data.repositories
 
-import android.util.Log
 import com.yonjar.futbolapp.leagues.data.network.LeagueService
 import com.yonjar.futbolapp.leagues.domain.models.MatchModel
 import com.yonjar.futbolapp.leagues.domain.models.leagueModels.LeagueModel
@@ -26,7 +25,7 @@ class RepositoryLeagues @Inject constructor(private val leagueService: LeagueSer
             }
             return leaguesList
         }
-            .onFailure { Log.i("Error Message", "Error: $it") }
+            .onFailure { println( "Error: $it") }
         return null
     }
 
@@ -35,7 +34,7 @@ class RepositoryLeagues @Inject constructor(private val leagueService: LeagueSer
             leagueService.getLeagueById(id)
         }.onSuccess {
             return it.league.toLeagueModel() }
-            .onFailure { Log.i("ErrorOnFailure", "Error ${it.message}") }
+            .onFailure { println("Error: ${it.message}") }
         return null
     }
 
@@ -51,7 +50,7 @@ class RepositoryLeagues @Inject constructor(private val leagueService: LeagueSer
             }
             return newList
         }
-        .onFailure { Log.i("Error Message","Error: ${it.message}") }
+        .onFailure { println("Error: ${it.message}") }
         return null
     }
 
@@ -66,14 +65,12 @@ class RepositoryLeagues @Inject constructor(private val leagueService: LeagueSer
                     s.stage?.name ==  "Championship Round" || s.stage?.name == "Relegation Round" -> {newList.add(s.toStandingModel())}
 
                     s.group?.name == "Championship Group" || s.group?.name == "Relegation Group" -> {
-                        println(s.group.name)
                         newList.add(s.toStandingModel())}
-
                 }
             }
             return newList
         }.onFailure {
-            Log.i("Error Message","Error: ${it.message}")
+            println("Error: ${it.message}")
         }
         return null
     }
@@ -92,8 +89,8 @@ class RepositoryLeagues @Inject constructor(private val leagueService: LeagueSer
             }
             return null
 
-        }. onFailure {
-            Log.i("Error Message","Error: ${it.message}")
+        }.onFailure {
+            println("Error: ${it.message}")
         }
         return null
     }
