@@ -1,5 +1,7 @@
-package com.yonjar.futbolapp.leagues.data.repositories
+package com.yonjar.futbolapp.leagues.data.repositories.motherObjects
 
+import com.yonjar.futbolapp.leagues.data.models.teamsModel.TeamModelResponse
+import com.yonjar.futbolapp.leagues.data.models.teamsModel.TeamResponse
 import com.yonjar.futbolapp.leagues.domain.models.CurrentSeasonModel
 import com.yonjar.futbolapp.leagues.domain.models.EventModel
 import com.yonjar.futbolapp.leagues.domain.models.MatchModel
@@ -7,6 +9,20 @@ import com.yonjar.futbolapp.leagues.domain.models.leagueModels.LeagueModel
 import com.yonjar.futbolapp.leagues.domain.models.teamModels.TeamModel
 
 object MotherObjectLeague {
+
+     val copenhagueResponse = TeamResponse(
+        TeamModelResponse(
+            id = 10,
+            countryId = 10,
+            yearFounded = 1992,
+            teamImage = "CopenhagueLogo.jpg",
+            shortName = "Copenhague",
+            name = "FC Copenhague",
+            activeSeason = null,
+            venue = null,
+            country = null
+        )
+    )
 
     private val fcCopenhague = TeamModel(
         id = 10,

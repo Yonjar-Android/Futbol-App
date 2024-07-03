@@ -1,6 +1,8 @@
 package com.yonjar.futbolapp.leagues.data.repositories
 
 import com.yonjar.futbolapp.leagues.data.network.LeagueService
+import com.yonjar.futbolapp.leagues.data.repositories.motherObjects.MotherObjectLeagueResponse
+import com.yonjar.futbolapp.leagues.data.repositories.motherObjects.MotherObjectStandings
 import com.yonjar.futbolapp.leagues.domain.models.MatchModel
 import com.yonjar.futbolapp.leagues.domain.models.leagueModels.LeagueModel
 import com.yonjar.futbolapp.leagues.domain.models.leagueModels.StandingModel
@@ -23,7 +25,7 @@ class RepositoryLeaguesTest {
     private val id = 1
     private val seasonId: Int = 21644
     private val seasonIdTwo: Int = 19686
-    val leagueId:Int = 271
+    private val leagueId:Int = 271
 
     @Before
     fun setUp() {
@@ -89,7 +91,8 @@ class RepositoryLeaguesTest {
     @Test
     fun `getStandingBySeasonId should return a list of StandingModel for a specific season`() = runBlocking {
         // Given
-        Mockito.`when`(leagueService.getStandingsBySeasonId(seasonId)).thenReturn(MotherObjectStandings.standingResponse)
+        Mockito.`when`(leagueService.getStandingsBySeasonId(seasonId)).thenReturn(
+            MotherObjectStandings.standingResponse)
 
         // When
         val response: List<StandingModel>? = repositoryLeagues.getStandingBySeasonId(seasonId)
@@ -116,7 +119,8 @@ class RepositoryLeaguesTest {
     @Test
     fun `getStandingPlayOffOneBySeasonId should return filtered standings by Championship or Relegation Round`() = runBlocking {
         // Given
-        Mockito.`when`(leagueService.getStandingsBySeasonId(seasonIdTwo)).thenReturn(MotherObjectStandings.mockStandingResponse)
+        Mockito.`when`(leagueService.getStandingsBySeasonId(seasonIdTwo)).thenReturn(
+            MotherObjectStandings.mockStandingResponse)
 
         // When
         val response: List<StandingModel>? = repositoryLeagues.getStandingPlayOffOneBySeasonId(seasonIdTwo)
@@ -143,7 +147,8 @@ class RepositoryLeaguesTest {
     @Test
     fun `getMatchesByLeagueId should return upcoming matches when include is upcoming_participants`()= runBlocking {
         // Given
-        Mockito.`when`(leagueService.getMatchesByLeagueId(leagueId,"upcoming.participants")).thenReturn(MotherObjectLeagueResponse.oneLeagueResponse)
+        Mockito.`when`(leagueService.getMatchesByLeagueId(leagueId,"upcoming.participants")).thenReturn(
+            MotherObjectLeagueResponse.oneLeagueResponse)
 
         // When
         val response: List<MatchModel>? = repositoryLeagues.getMatchesByLeagueId(leagueId,"upcoming.participants")

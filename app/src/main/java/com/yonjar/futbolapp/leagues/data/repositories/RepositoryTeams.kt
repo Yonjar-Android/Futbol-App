@@ -1,6 +1,5 @@
 package com.yonjar.futbolapp.leagues.data.repositories
 
-import android.util.Log
 import com.yonjar.futbolapp.leagues.data.network.TeamService
 import com.yonjar.futbolapp.leagues.domain.models.PlayerModel
 import com.yonjar.futbolapp.leagues.domain.models.PlayerStatistics
@@ -10,15 +9,15 @@ import com.yonjar.futbolapp.leagues.domain.repositories.RepositoryTeams
 import javax.inject.Inject
 
 class RepositoryTeams @Inject constructor
-    (private val teamService: TeamService)
-    : RepositoryTeams {
+    (private val teamService: TeamService) : RepositoryTeams {
+
     override suspend fun getTeamById(id: Int): TeamModel? {
         runCatching {
             teamService.getTeamById(id)
         }.onSuccess {
-            println(it.data.activeSeason?.get(0)?.seasonId)
-            return it.data.toTeamModel() }
-            .onFailure { Log.i("Error Message", "Error: ${it.message}") }
+            return it.data.toTeamModel()
+        }
+            .onFailure { println("Error: ${it.message}") }
 
         return null
     }
@@ -29,14 +28,14 @@ class RepositoryTeams @Inject constructor
         }.onSuccess {
             val squadList = mutableListOf<TeamSquadModel>()
 
-            for(n in it.data){
+            for (n in it.data) {
                 squadList.add(n.toTeamSquadModel())
             }
 
             return squadList
 
         }.onFailure {
-            Log.i("Error Message", "Error: ${it.message}")
+            println("Error: ${it.message}")
         }
         return null
     }
@@ -47,7 +46,7 @@ class RepositoryTeams @Inject constructor
         }.onSuccess {
             return it.player.toPlayerModel()
         }.onFailure {
-            Log.i("Error Message", "Error: ${it.message}")
+            println("Error: ${it.message}")
         }
         return null
     }
@@ -56,9 +55,9 @@ class RepositoryTeams @Inject constructor
         runCatching {
             teamService.getPlayerById(id, "statistics.details.type")
         }.onSuccess {
-            if(it.player.statistics?.isNotEmpty() == true){
-                for (n in it.player.statistics){
-                    if(n.seasonId == seasonId){
+            if (it.player.statistics?.isNotEmpty() == true) {
+                for (n in it.player.statistics) {
+                    if (n.seasonId == seasonId) {
                         return n.toPlayerStatistic()
                     }
                     continue
@@ -66,7 +65,7 @@ class RepositoryTeams @Inject constructor
             }
             return null
         }.onFailure {
-            Log.i("Error Message", "Error: ${it.message}")
+            println("Error: ${it.message}")
         }
         return null
     }

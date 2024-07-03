@@ -1,4 +1,4 @@
-package com.yonjar.futbolapp.leagues.data.repositories
+package com.yonjar.futbolapp.leagues.data.repositories.motherObjects
 
 import com.yonjar.futbolapp.leagues.data.models.CountryResponse
 import com.yonjar.futbolapp.leagues.data.models.VenueResponse
@@ -9,7 +9,6 @@ import com.yonjar.futbolapp.leagues.data.models.leagueModel.OneLeagueResponse
 import com.yonjar.futbolapp.leagues.data.models.matchesModel.MatchModelResponse
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.ActiveSeason
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.TeamModelResponse
-import com.yonjar.futbolapp.leagues.domain.models.teamModels.TeamModel
 
 object MotherObjectLeagueResponse {
     private val currentSeason = CurrentSeasonModelResponse(
@@ -93,7 +92,7 @@ object MotherObjectLeagueResponse {
 
 
     private val teams =  listOf(
-        fcCopenhague,randers
+        fcCopenhague, randers
     )
 
     private val teamsTwo = listOf(

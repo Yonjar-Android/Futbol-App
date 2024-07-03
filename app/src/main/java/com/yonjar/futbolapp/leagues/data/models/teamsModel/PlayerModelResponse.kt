@@ -20,7 +20,6 @@ data class PlayerModelResponse(
     @SerializedName("detailedposition") val detailedPosition:DetailedPositionResponse?,
     @SerializedName("date_of_birth") val dateOfBirth:String?,
     @SerializedName("statistics") val statistics:List<PlayerStatisticResponse>?
-
 ){
     fun toPlayerModel():PlayerModel {
         val stats = mutableListOf<PlayerStatistics>()
