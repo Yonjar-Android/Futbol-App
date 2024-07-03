@@ -145,5 +145,7 @@ object MotherObjectStandings {
         )
     )
 
+    val leaguesModelList = mockStandingResponse.data.map { it.toStandingModel() }
+
 
 }

@@ -32,7 +32,7 @@ class DetailLeagueViewModel @Inject constructor
                 }
             } catch (e: Exception) {
                 _state.value = DetailLeagueState.Error("Error: ${e.message}")
-                Log.i("Message","Error: ${e.message}")
+                println("Error: ${e.message}")
             }
         }
     }

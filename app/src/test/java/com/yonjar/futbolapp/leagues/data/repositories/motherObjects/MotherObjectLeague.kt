@@ -84,7 +84,7 @@ object MotherObjectLeague {
 
     )
 
-    private val nextMatches = listOf(
+     val nextMatches = listOf(
         MatchModel(
             id = 2000,
             name = "FC Copenhague vs Randers",
@@ -98,7 +98,7 @@ object MotherObjectLeague {
         )
     )
 
-    private val lastMatches = listOf(
+     val lastMatches = listOf(
             MatchModel(
                 id = 1000,
                 name = "FC Copenhague vs Randers",
@@ -112,25 +112,26 @@ object MotherObjectLeague {
             )
     )
 
+    val leagueModel = LeagueModel(
+        id = 1,
+        countryId = 10,
+        "SuperLiga",
+        "SuperLiga.jpg",
+        subType = "domestic",
+        currentSeason = CurrentSeasonModel(
+            idSeason = 500,
+            name = "2024/2025",
+            isCurrent = true,
+            startingAt = "2024-01-01",
+            endingAt = "2024-12-31",
+            finished = false
+        ),
+        upcomingMatches = nextMatches,
+        latestMatches = lastMatches
+    )
 
     val leagues = listOf(
-        LeagueModel(
-            id = 1,
-            countryId = 10,
-            "SuperLiga",
-            "SuperLiga.jpg",
-            subType = "domestic",
-            currentSeason = CurrentSeasonModel(
-                idSeason = 500,
-                name = "2024/2025",
-                isCurrent = true,
-                startingAt = "2024-01-01",
-                endingAt = "2024-12-31",
-                finished = false
-            ),
-            upcomingMatches = nextMatches,
-            latestMatches = lastMatches
-        )
+        leagueModel
     )
 
 
