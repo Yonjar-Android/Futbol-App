@@ -1,4 +1,4 @@
-package com.yonjar.futbolapp.leagues.data.repositories.motherObjects
+package com.yonjar.futbolapp.motherObjects
 
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.DetailedPositionResponse
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.Nationality
@@ -11,6 +11,7 @@ import com.yonjar.futbolapp.leagues.data.models.teamsModel.PlayerStatisticRespon
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.PositionModelResponse
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.TeamSquadModelResponse
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.TeamSquadResponse
+import com.yonjar.futbolapp.leagues.domain.models.PlayerStatistics
 
 object MotherObjectSquad {
 
@@ -70,6 +71,10 @@ object MotherObjectSquad {
     val playerResponse = PlayerData(
         player = jamesTavernier
     )
+
+    val playerModel = playerResponse.player.toPlayerModel()
+
+    val playerStatistics = playerModel.statistics?.get(0)
 
         val teamSquadResponse = TeamSquadResponse(
             data = listOf(
@@ -132,4 +137,6 @@ object MotherObjectSquad {
                 )
             )
         )
+
+    val teamSquadModel = teamSquadResponse.data.map { it.toTeamSquadModel() }
     }

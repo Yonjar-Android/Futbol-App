@@ -1,7 +1,7 @@
 import app.cash.turbine.test
 import com.yonjar.futbolapp.TestCoroutineRule
 import com.yonjar.futbolapp.leagues.data.repositories.RepositoryLeagues
-import com.yonjar.futbolapp.leagues.data.repositories.motherObjects.MotherObjectLeague
+import com.yonjar.futbolapp.motherObjects.MotherObjectLeague
 import com.yonjar.futbolapp.leagues.ui.leagueMainScreen.LeaguesState
 import com.yonjar.futbolapp.leagues.ui.leagueMainScreen.LeaguesViewModel
 import kotlinx.coroutines.Dispatchers

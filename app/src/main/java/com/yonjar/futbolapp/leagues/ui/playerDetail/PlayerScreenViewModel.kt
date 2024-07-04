@@ -27,7 +27,7 @@ class PlayerScreenViewModel @Inject constructor(private val repositoryTeams: Rep
                     _state.value = PlayerState.Error("Response was null")
                 }
             } catch (e:Exception){
-                _state.value = PlayerState.Error("${e.message}")
+                _state.value = PlayerState.Error("Error: ${e.message}")
             }
         }
     }

@@ -1,8 +1,8 @@
 package com.yonjar.futbolapp.leagues.data.repositories
 
 import com.yonjar.futbolapp.leagues.data.network.LeagueService
-import com.yonjar.futbolapp.leagues.data.repositories.motherObjects.MotherObjectLeagueResponse
-import com.yonjar.futbolapp.leagues.data.repositories.motherObjects.MotherObjectStandings
+import com.yonjar.futbolapp.motherObjects.MotherObjectLeagueResponse
+import com.yonjar.futbolapp.motherObjects.MotherObjectStandings
 import com.yonjar.futbolapp.leagues.domain.models.MatchModel
 import com.yonjar.futbolapp.leagues.domain.models.leagueModels.LeagueModel
 import com.yonjar.futbolapp.leagues.domain.models.leagueModels.StandingModel

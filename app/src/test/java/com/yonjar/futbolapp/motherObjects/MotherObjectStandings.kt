@@ -1,4 +1,4 @@
-package com.yonjar.futbolapp.leagues.data.repositories.motherObjects
+package com.yonjar.futbolapp.motherObjects
 
 import com.yonjar.futbolapp.leagues.data.models.leagueModel.StageModelResponse
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.StandingModelResponse

@@ -3,7 +3,7 @@ package com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.matchesInfo
 import app.cash.turbine.test
 import com.yonjar.futbolapp.TestCoroutineRule
 import com.yonjar.futbolapp.leagues.data.repositories.RepositoryLeagues
-import com.yonjar.futbolapp.leagues.data.repositories.motherObjects.MotherObjectLeague
+import com.yonjar.futbolapp.motherObjects.MotherObjectLeague
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -34,7 +34,8 @@ class MatchesViewModelTest{
     @Test
     fun `getMatches() should return next matches successfully`() = runTest {
         // Given
-        Mockito.`when`(repositoryLeagues.getMatchesByLeagueId(1,"upcoming.participants")).thenReturn(MotherObjectLeague.nextMatches)
+        Mockito.`when`(repositoryLeagues.getMatchesByLeagueId(1,"upcoming.participants")).thenReturn(
+            MotherObjectLeague.nextMatches)
 
         //When
         viewModel.getMatches(1, MatchesTabs.NextMatches)
@@ -46,7 +47,7 @@ class MatchesViewModelTest{
             val state = awaitItem()
             assertTrue(state is MatchesState.Success)
             val successState = state as MatchesState.Success
-            assertEquals(successState.matchesState,MotherObjectLeague.nextMatches)
+            assertEquals(successState.matchesState, MotherObjectLeague.nextMatches)
         }
 
     }
@@ -54,7 +55,8 @@ class MatchesViewModelTest{
     @Test
     fun `getMatches() should return last matches successfully`() = runTest {
         // Given
-        Mockito.`when`(repositoryLeagues.getMatchesByLeagueId(1,"latest.participants;latest.scores;latest.events")).thenReturn(MotherObjectLeague.lastMatches)
+        Mockito.`when`(repositoryLeagues.getMatchesByLeagueId(1,"latest.participants;latest.scores;latest.events")).thenReturn(
+            MotherObjectLeague.lastMatches)
 
         //When
         viewModel.getMatches(1, MatchesTabs.LastsMatches)
@@ -66,7 +68,7 @@ class MatchesViewModelTest{
             val state = awaitItem()
             assertTrue(state is MatchesState.Success)
             val successState = state as MatchesState.Success
-            assertEquals(successState.matchesState,MotherObjectLeague.lastMatches)
+            assertEquals(successState.matchesState, MotherObjectLeague.lastMatches)
         }
     }
 

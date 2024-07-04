@@ -1,8 +1,8 @@
 package com.yonjar.futbolapp.leagues.data.repositories
 
 import com.yonjar.futbolapp.leagues.data.network.TeamService
-import com.yonjar.futbolapp.leagues.data.repositories.motherObjects.MotherObjectLeague
-import com.yonjar.futbolapp.leagues.data.repositories.motherObjects.MotherObjectSquad
+import com.yonjar.futbolapp.motherObjects.MotherObjectLeague
+import com.yonjar.futbolapp.motherObjects.MotherObjectSquad
 import com.yonjar.futbolapp.leagues.domain.models.PlayerModel
 import com.yonjar.futbolapp.leagues.domain.models.PlayerStatistics
 import com.yonjar.futbolapp.leagues.domain.models.teamModels.TeamModel
@@ -117,7 +117,8 @@ class RepositoryTeamsTest{
     @Test
     fun `repositoryTeams getPlayerStatistics should return a PlayerStatistics when service call is successful`() = runBlocking {
         //Given
-        Mockito.`when`(teamService.getPlayerById(playerId,"statistics.details.type")).thenReturn(MotherObjectSquad.playerResponse)
+        Mockito.`when`(teamService.getPlayerById(playerId,"statistics.details.type")).thenReturn(
+            MotherObjectSquad.playerResponse)
 
         //When
         val response:PlayerStatistics? = repositoryTeams.getPlayerStatistics(playerId,seasonId)

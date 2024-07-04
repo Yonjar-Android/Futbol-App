@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import app.cash.turbine.test
 import com.yonjar.futbolapp.TestCoroutineRule
 import com.yonjar.futbolapp.leagues.data.repositories.RepositoryLeagues
-import com.yonjar.futbolapp.leagues.data.repositories.motherObjects.MotherObjectLeague
-import com.yonjar.futbolapp.leagues.data.repositories.motherObjects.MotherObjectStandings
+import com.yonjar.futbolapp.motherObjects.MotherObjectLeague
+import com.yonjar.futbolapp.motherObjects.MotherObjectStandings
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -41,8 +41,10 @@ class DetailLeagueViewModelTest {
         //Given
         Mockito.`when`(repositoryLeagues.getLeagueById(leagueId)).thenReturn(MotherObjectLeague.leagueModel)
         val seasonId = MotherObjectLeague.leagueModel.currentSeason?.idSeason
-        Mockito.`when`(repositoryLeagues.getStandingBySeasonId(seasonId)).thenReturn(MotherObjectStandings.leaguesModelList)
-        Mockito.`when`(repositoryLeagues.getStandingPlayOffOneBySeasonId(seasonId)).thenReturn(MotherObjectStandings.leaguesModelList)
+        Mockito.`when`(repositoryLeagues.getStandingBySeasonId(seasonId)).thenReturn(
+            MotherObjectStandings.leaguesModelList)
+        Mockito.`when`(repositoryLeagues.getStandingPlayOffOneBySeasonId(seasonId)).thenReturn(
+            MotherObjectStandings.leaguesModelList)
 
         //When
         viewModel.chargeLeague(leagueId)
@@ -64,7 +66,8 @@ class DetailLeagueViewModelTest {
         // Given
         Mockito.`when`(repositoryLeagues.getLeagueById(leagueId)).thenReturn(MotherObjectLeague.leagueModel)
         val seasonId = MotherObjectLeague.leagueModel.currentSeason?.idSeason
-        Mockito.`when`(repositoryLeagues.getStandingBySeasonId(seasonId)).thenReturn(MotherObjectStandings.leaguesModelList)
+        Mockito.`when`(repositoryLeagues.getStandingBySeasonId(seasonId)).thenReturn(
+            MotherObjectStandings.leaguesModelList)
         Mockito.`when`(repositoryLeagues.getStandingPlayOffOneBySeasonId(seasonId)).thenThrow(RuntimeException("Simulated error"))
 
         // When

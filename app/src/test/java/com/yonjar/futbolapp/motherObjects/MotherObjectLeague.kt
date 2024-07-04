@@ -1,4 +1,4 @@
-package com.yonjar.futbolapp.leagues.data.repositories.motherObjects
+package com.yonjar.futbolapp.motherObjects
 
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.TeamModelResponse
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.TeamResponse
@@ -24,7 +24,7 @@ object MotherObjectLeague {
         )
     )
 
-    private val fcCopenhague = TeamModel(
+     val fcCopenhagueModel = TeamModel(
         id = 10,
         countryId = 10,
         countryFlag = "DenmarkFlag.jpg",
@@ -90,7 +90,7 @@ object MotherObjectLeague {
             name = "FC Copenhague vs Randers",
             date = "2024-02-14",
             result = "FC Copenhague won after full time",
-            teamHome = fcCopenhague,
+            teamHome = fcCopenhagueModel,
             teamAway = fcRanders,
             goalsHome = 1,
             goalsAway = 0,
@@ -104,7 +104,7 @@ object MotherObjectLeague {
                 name = "FC Copenhague vs Randers",
                 date = "2024-04-15",
                 result = "FC Copenhague won after full time",
-                teamHome = fcCopenhague,
+                teamHome = fcCopenhagueModel,
                 teamAway = fcRanders,
                 goalsHome = 1,
                 goalsAway = 0,

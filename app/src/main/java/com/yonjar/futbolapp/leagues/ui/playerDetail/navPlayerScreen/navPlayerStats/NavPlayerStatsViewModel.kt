@@ -32,13 +32,11 @@ constructor(private val repositoryTeams: RepositoryTeams)
                     _state.value = NavPlayerStatsState.Error("Response was null")
                 }
             } catch (e: Exception) {
-                _state.value = NavPlayerStatsState.Error(e.message ?: "")
+                _state.value = NavPlayerStatsState.Error("Error: ${e.message}")
             }
         }
     }
-
     fun areStatsLoaded(): Int {
         return actualPlayer
     }
-
 }
