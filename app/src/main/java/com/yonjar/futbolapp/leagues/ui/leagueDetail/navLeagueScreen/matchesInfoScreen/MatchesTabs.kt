@@ -16,8 +16,8 @@ enum class MatchesTabs(
     @Composable
     fun getText(): String {
         return when (this) {
-            NextMatches -> stringResource(id = R.string.lastMatches_str)
-            LastsMatches -> stringResource(id = R.string.nextMatches_str)
+            NextMatches -> stringResource(id = R.string.nextMatches_str)
+            LastsMatches -> stringResource(id = R.string.lastMatches_str)
         }
     }
 }

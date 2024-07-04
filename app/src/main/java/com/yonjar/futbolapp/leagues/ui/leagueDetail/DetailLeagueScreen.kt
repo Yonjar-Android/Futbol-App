@@ -99,12 +99,12 @@ fun SuccessFun(
             model = state.league.leagueImage,
             contentDescription = state.league.name,
             modifier = Modifier
-                .size(120.dp)
-                .padding(horizontal = 5.dp)
+                .size(100.dp)
+                .padding(bottom = 5.dp)
         )
         Text(
             text = "${stringResource(id = R.string.season_str)}: ${state.league.currentSeason?.name}",
-            fontSize = 20.sp,
+            fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 8.dp),
             color = Color.Black

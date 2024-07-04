@@ -224,7 +224,7 @@ fun MatchItem(matchInfo: MatchModel) {
                             for (n in matchInfo.goalMinutes) {
                                 if (matchInfo.teamHome?.id == n.participant) {
                                     Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
-                                        Text(text = "${n.player} ${n.minute.toString()}", textAlign = TextAlign.Center)
+                                        Text(text = "${n.player} ${n.minute.toString()}", textAlign = TextAlign.Center, fontSize = 14.sp)
                                     }
                                 }
                             }
@@ -233,7 +233,7 @@ fun MatchItem(matchInfo: MatchModel) {
                             for (n in matchInfo.goalMinutes) {
                                 if (matchInfo.teamAway?.id == n.participant) {
                                     Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
-                                        Text(text = "${n.player} ${n.minute.toString()}", textAlign = TextAlign.Center)
+                                        Text(text = "${n.player} ${n.minute.toString()}", textAlign = TextAlign.Center, fontSize = 14.sp)
                                     }
                                 }
                             }
