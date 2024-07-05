@@ -30,7 +30,9 @@ object MotherObjectStandings {
                     yearFounded = 2003,
                     country = null,
                     venue = null,
-                    activeSeason = null
+                    activeSeason = null,
+                    upcomingMatches = null,
+                    latestMatches = null
                 ),
                 stage = StageModelResponse(
                     id = 77463995,
@@ -62,7 +64,9 @@ object MotherObjectStandings {
                     yearFounded = 1999,
                     country = null,
                     venue = null,
-                    activeSeason = null
+                    activeSeason = null,
+                    upcomingMatches = null,
+                    latestMatches = null
                 ),
                 stage = StageModelResponse(
                     id = 77463996,
@@ -100,7 +104,9 @@ object MotherObjectStandings {
                     yearFounded = 1992,
                     country = null,
                     venue = null,
-                    activeSeason = null
+                    activeSeason = null,
+                    latestMatches = null,
+                    upcomingMatches = null
                 ),
                 stage = StageModelResponse(
                     id = 77457694,
@@ -132,7 +138,9 @@ object MotherObjectStandings {
                     yearFounded = 1999,
                     country = null,
                     venue = null,
-                    activeSeason = null
+                    activeSeason = null,
+                    upcomingMatches = null,
+                    latestMatches = null
                 ),
                 stage = StageModelResponse(
                     id = 77457695,

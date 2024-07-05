@@ -1,12 +1,14 @@
 package com.yonjar.futbolapp.leagues.data.repositories
 
 import com.yonjar.futbolapp.leagues.data.network.TeamService
+import com.yonjar.futbolapp.leagues.domain.models.MatchModel
 import com.yonjar.futbolapp.motherObjects.MotherObjectLeague
 import com.yonjar.futbolapp.motherObjects.MotherObjectSquad
 import com.yonjar.futbolapp.leagues.domain.models.PlayerModel
 import com.yonjar.futbolapp.leagues.domain.models.PlayerStatistics
 import com.yonjar.futbolapp.leagues.domain.models.teamModels.TeamModel
 import com.yonjar.futbolapp.leagues.domain.models.teamModels.TeamSquadModel
+import com.yonjar.futbolapp.motherObjects.MotherObjectLeagueResponse
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -139,6 +141,49 @@ class RepositoryTeamsTest{
 
         // Then
         Mockito.verify(teamService, times(1)).getPlayerById(playerId,"statistics.details.type")
+        assertNull(response)
+    }
+
+    @Test
+    fun `repositoryTeams getMatchesByTeamId should return a MatchModel list of the next matches of the team when service call is successful`() = runBlocking {
+        //Given
+        Mockito.`when`(teamService.getTeamById(teamId,"upcoming.participants")).thenReturn(MotherObjectLeagueResponse.copenhagueResponse)
+
+        //When
+        val response:List<MatchModel>? = repositoryTeams.getMatchesByTeamId(teamId,"upcoming.participants")
+
+        //Then
+        Mockito.verify(teamService, times(1)).getTeamById(teamId,"upcoming.participants")
+        assertNotNull(response)
+        assertTrue(response is List<MatchModel>)
+        assertEquals(response, MotherObjectLeagueResponse.copenhagueResponse.data.toTeamModel().nextMatches)
+    }
+
+    @Test
+    fun `repositoryTeams getMatchesByTeamId should return a MatchModel list of the last matches of the team when service call is successful`() = runBlocking {
+        //Given
+        Mockito.`when`(teamService.getTeamById(teamId,"latest.participants;latest.scores;latest.events")).thenReturn(MotherObjectLeagueResponse.copenhagueResponse)
+
+        //When
+        val response:List<MatchModel>? = repositoryTeams.getMatchesByTeamId(teamId,"latest.participants;latest.scores;latest.events")
+
+        //Then
+        Mockito.verify(teamService, times(1)).getTeamById(teamId,"latest.participants;latest.scores;latest.events")
+        assertNotNull(response)
+        assertTrue(response is List<MatchModel>)
+        assertEquals(response, MotherObjectLeagueResponse.copenhagueResponse.data.toTeamModel().lastMatches)
+    }
+
+    @Test
+    fun `repositoryTeams getMatchesByTeamId should return null if the service call fails`() = runBlocking {
+        //Given
+        Mockito.`when`(teamService.getTeamById(teamId,"upcoming.participants")).thenThrow(exception)
+
+        //When
+        val response:List<MatchModel>? = repositoryTeams.getMatchesByTeamId(teamId,"upcoming.participants")
+
+        //Then
+        Mockito.verify(teamService, times(1)).getTeamById(teamId,"upcoming.participants")
         assertNull(response)
     }
 }

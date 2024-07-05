@@ -20,7 +20,9 @@ object MotherObjectLeague {
             name = "FC Copenhague",
             activeSeason = null,
             venue = null,
-            country = null
+            country = null,
+            upcomingMatches = null,
+            latestMatches = null
         )
     )
 
@@ -38,6 +40,8 @@ object MotherObjectLeague {
         stadiumImage = "StadiumCopenhague.jpg",
         stadiumName = "Parken Stadion",
         name = "FC Copenhague",
+         nextMatches = null,
+         lastMatches = null
     )
 
     private val fcRanders = TeamModel(
@@ -54,6 +58,8 @@ object MotherObjectLeague {
         stadiumImage = "StadiumRanders.jpg",
         stadiumName = "Randers Stadion",
         name = "Randers",
+        nextMatches = null,
+        lastMatches = null
     )
 
     private val listOfEventGoalsNextM = listOf(

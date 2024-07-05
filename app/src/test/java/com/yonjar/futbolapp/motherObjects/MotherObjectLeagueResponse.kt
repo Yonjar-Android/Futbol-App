@@ -9,6 +9,7 @@ import com.yonjar.futbolapp.leagues.data.models.leagueModel.OneLeagueResponse
 import com.yonjar.futbolapp.leagues.data.models.matchesModel.MatchModelResponse
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.ActiveSeason
 import com.yonjar.futbolapp.leagues.data.models.teamsModel.TeamModelResponse
+import com.yonjar.futbolapp.leagues.data.models.teamsModel.TeamResponse
 
 object MotherObjectLeagueResponse {
     private val currentSeason = CurrentSeasonModelResponse(
@@ -63,7 +64,9 @@ object MotherObjectLeagueResponse {
         name = "Randers",
         country = denmark,
         venue = randersVenue,
-        activeSeason = activeSeasons
+        activeSeason = activeSeasons,
+        upcomingMatches = null,
+        latestMatches = null
     )
 
     private val fcCopenhague = TeamModelResponse(
@@ -75,7 +78,9 @@ object MotherObjectLeagueResponse {
         name = "FC Copenhague",
         country = denmark,
         venue = copenhagueVenue,
-        activeSeason = activeSeasons
+        activeSeason = activeSeasons,
+        upcomingMatches = null,
+        latestMatches = null
     )
 
     private val agf = TeamModelResponse(
@@ -87,7 +92,9 @@ object MotherObjectLeagueResponse {
         name = "AGF",
         country = denmark,
         venue = agfVenue,
-        activeSeason = activeSeasons
+        activeSeason = activeSeasons,
+        upcomingMatches = null,
+        latestMatches = null
     )
 
 
@@ -123,6 +130,21 @@ object MotherObjectLeagueResponse {
         )
     )
 
+    val copenhagueResponse = TeamResponse(
+        TeamModelResponse(
+            id = 10,
+            countryId = 10,
+            yearFounded = 1992,
+            teamImage = "CopenhagueLogo.jpg",
+            shortName = "Copenhague",
+            name = "FC Copenhague",
+            activeSeason = null,
+            venue = null,
+            country = null,
+            upcomingMatches = upcomingMatches,
+            latestMatches = lastMatches
+        )
+    )
 
      val leagueModelResponse = LeagueModelResponse(
         id = 1,
