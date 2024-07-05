@@ -1,5 +1,7 @@
 package com.yonjar.futbolapp.leagues.domain.models.teamModels
 
+import com.yonjar.futbolapp.leagues.domain.models.MatchModel
+
 
 data class TeamModel(
     val id: Int,
@@ -14,6 +16,8 @@ data class TeamModel(
     val stadiumName:String?,
     val stadiumImage:String?,
     val currentSeasonId:Int?,
-    val currentSeasonName:String?
+    val currentSeasonName:String?,
+    val nextMatches:List<MatchModel>?,
+    val lastMatches:List<MatchModel>?
 
 )

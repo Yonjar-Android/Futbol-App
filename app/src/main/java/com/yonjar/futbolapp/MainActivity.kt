@@ -25,6 +25,7 @@ import com.yonjar.futbolapp.leagues.ui.playerDetail.PlayerScreenViewModel
 import com.yonjar.futbolapp.leagues.ui.playerDetail.navPlayerScreen.navPlayerStats.NavPlayerStatsViewModel
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.TeamScreenViewModel
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.TeamsScreen
+import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.teamMatchesScreen.TeamMatchesViewModel
 import com.yonjar.futbolapp.ui.theme.FutbolAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,13 +36,15 @@ class MainActivity : ComponentActivity() {
 
     private val detailLeagueViewModel: DetailLeagueViewModel by viewModels()
 
-    private val teamScreenViewModel:TeamScreenViewModel by viewModels()
+    private val teamScreenViewModel: TeamScreenViewModel by viewModels()
 
-    private val playerScreenViewModel:PlayerScreenViewModel by viewModels()
+    private val playerScreenViewModel: PlayerScreenViewModel by viewModels()
 
-    private val playerStatsViewModel:NavPlayerStatsViewModel by viewModels()
+    private val playerStatsViewModel: NavPlayerStatsViewModel by viewModels()
 
-    private val matchesViewModel:MatchesViewModel by viewModels()
+    private val matchesViewModel: MatchesViewModel by viewModels()
+
+    private val teamMatchesViewModel: TeamMatchesViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,16 +67,30 @@ class MainActivity : ComponentActivity() {
                             }
                         )) { args ->
                             args.arguments?.getInt("leagueId")
-                                ?.let { DetailLeagueScreen(leagueId = it, detailLeagueViewModel, navController, matchesViewModel = matchesViewModel) }
+                                ?.let {
+                                    DetailLeagueScreen(
+                                        leagueId = it,
+                                        detailLeagueViewModel,
+                                        navController,
+                                        matchesViewModel = matchesViewModel
+                                    )
+                                }
                         }
 
                         composable(route = "TeamsScreen/{teamId}", arguments = listOf(
-                            navArgument(name = "teamId"){
+                            navArgument(name = "teamId") {
                                 type = NavType.IntType
                             }
-                        )){args ->
+                        )) { args ->
                             args.arguments?.getInt("teamId")
-                                ?.let { TeamsScreen(teamId = it, navController, teamScreenViewModel) }
+                                ?.let {
+                                    TeamsScreen(
+                                        teamId = it,
+                                        navController,
+                                        teamScreenViewModel = teamScreenViewModel,
+                                        teamMatchesViewModel = teamMatchesViewModel
+                                    )
+                                }
                         }
                         composable(
                             route = "PlayerScreen/{playerId}/{currentSeasonId}",

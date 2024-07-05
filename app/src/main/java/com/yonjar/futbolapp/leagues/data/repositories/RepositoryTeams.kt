@@ -1,6 +1,7 @@
 package com.yonjar.futbolapp.leagues.data.repositories
 
 import com.yonjar.futbolapp.leagues.data.network.TeamService
+import com.yonjar.futbolapp.leagues.domain.models.MatchModel
 import com.yonjar.futbolapp.leagues.domain.models.PlayerModel
 import com.yonjar.futbolapp.leagues.domain.models.PlayerStatistics
 import com.yonjar.futbolapp.leagues.domain.models.teamModels.TeamModel
@@ -62,6 +63,23 @@ class RepositoryTeams @Inject constructor
                     }
                     continue
                 }
+            }
+            return null
+        }.onFailure {
+            println("Error: ${it.message}")
+        }
+        return null
+    }
+
+    override suspend fun getMatchesByTeamId(id: Int, include: String): List<MatchModel>? {
+        runCatching {
+            teamService.getTeamById(id, include)
+        }.onSuccess {
+            if(include == "upcoming.participants"){
+                return it.data.toTeamModel().nextMatches
+            }
+            else if(include == "latest.participants;latest.scores;latest.events"){
+                return it.data.toTeamModel().lastMatches
             }
             return null
         }.onFailure {

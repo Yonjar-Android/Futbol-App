@@ -155,8 +155,8 @@ fun MatchItem(matchInfo: MatchModel) {
             Text(text = matchInfo.name, fontSize = 24.sp, fontWeight = FontWeight.SemiBold)
         }
 
-        if (matchInfo.result?.isNotBlank() == true){
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
+        if (matchInfo.result?.isNotBlank() == true) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Text(
                     text = matchInfo.date,
                     fontSize = 14.sp,
@@ -223,8 +223,15 @@ fun MatchItem(matchInfo: MatchModel) {
                         Column(modifier = Modifier.weight(1f)) {
                             for (n in matchInfo.goalMinutes) {
                                 if (matchInfo.teamHome?.id == n.participant) {
-                                    Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
-                                        Text(text = "${n.player} ${n.minute.toString()}", textAlign = TextAlign.Center, fontSize = 14.sp)
+                                    Row(
+                                        horizontalArrangement = Arrangement.Center,
+                                        modifier = Modifier.fillMaxWidth()
+                                    ) {
+                                        Text(
+                                            text = "${n.player} ${n.minute.toString()}",
+                                            textAlign = TextAlign.Center,
+                                            fontSize = 14.sp
+                                        )
                                     }
                                 }
                             }
@@ -232,8 +239,15 @@ fun MatchItem(matchInfo: MatchModel) {
                         Column(modifier = Modifier.weight(1f)) {
                             for (n in matchInfo.goalMinutes) {
                                 if (matchInfo.teamAway?.id == n.participant) {
-                                    Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
-                                        Text(text = "${n.player} ${n.minute.toString()}", textAlign = TextAlign.Center, fontSize = 14.sp)
+                                    Row(
+                                        horizontalArrangement = Arrangement.Center,
+                                        modifier = Modifier.fillMaxWidth()
+                                    ) {
+                                        Text(
+                                            text = "${n.player} ${n.minute.toString()}",
+                                            textAlign = TextAlign.Center,
+                                            fontSize = 14.sp
+                                        )
                                     }
                                 }
                             }

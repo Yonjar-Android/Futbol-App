@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -36,13 +37,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.yonjar.futbolapp.R
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.InfoTeamScreen
+import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.teamMatchesScreen.TeamMatchesScreen
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.TeamPlayersScreen
+import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.teamMatchesScreen.TeamMatchesViewModel
 
 @Composable
 fun TeamsScreen(
     teamId: Int,
     navController: NavHostController,
-    teamScreenViewModel: TeamScreenViewModel
+    teamScreenViewModel: TeamScreenViewModel,
+    teamMatchesViewModel: TeamMatchesViewModel
 ) {
 
     val state = teamScreenViewModel.state.collectAsState()
@@ -71,7 +75,7 @@ fun TeamsScreen(
                 when (val currentState = state.value) {
                     is TeamsScreenState.Error -> ErrorFun(currentState, context)
                     TeamsScreenState.Loading -> LoadingFun()
-                    is TeamsScreenState.Success -> SuccessFun(currentState, navController)
+                    is TeamsScreenState.Success -> SuccessFun(currentState, navController, teamMatchesViewModel)
                 }
             }
         }
@@ -79,8 +83,12 @@ fun TeamsScreen(
 }
 
 @Composable
-fun SuccessFun(state: TeamsScreenState.Success, navController: NavHostController) {
-    SimpleScaffold(state, navController)
+fun SuccessFun(
+    state: TeamsScreenState.Success,
+    navController: NavHostController,
+    teamMatchesViewModel: TeamMatchesViewModel
+) {
+    SimpleScaffold(state, navController, teamMatchesViewModel)
 }
 
 @Composable
@@ -115,6 +123,13 @@ fun MyBottomTeamNavigation(navigationController: NavHostController) {
         }, icon = {
             Icon(imageVector = Icons.Filled.Person, contentDescription = "Players")
         }, label = { Text(text = stringResource(id = R.string.squad_str)) })
+
+        NavigationBarItem(selected = index == 2, onClick = {
+            index = 2
+            navigationController.navigate("TeamMatchesScreen")
+        }, icon = {
+            Icon(imageVector = Icons.Filled.Star, contentDescription = "Matches")
+        }, label = { Text(text = stringResource(id = R.string.matches_str)) })
     }
 }
 
@@ -129,7 +144,11 @@ fun MyTopTeamAppBar(navController: NavHostController) {
 }
 
 @Composable
-fun SimpleScaffold(state: TeamsScreenState.Success, navController: NavHostController) {
+fun SimpleScaffold(
+    state: TeamsScreenState.Success,
+    navController: NavHostController,
+    teamMatchesViewModel: TeamMatchesViewModel
+) {
     val navigationController = rememberNavController()
     Scaffold(
         content = {
@@ -139,6 +158,7 @@ fun SimpleScaffold(state: TeamsScreenState.Success, navController: NavHostContro
             ) {
                 composable(route = "InfoTeamScreen") { InfoTeamScreen(state, navController) }
                 composable(route = "TeamPlayersScreen") { TeamPlayersScreen(state, navController) }
+                composable(route = "TeamMatchesScreen") { TeamMatchesScreen(state.team.id, navController, teamMatchesViewModel) }
             }
 
         }, bottomBar = { MyBottomTeamNavigation(navigationController) })
