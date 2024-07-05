@@ -27,8 +27,8 @@ class DetailLeagueViewModelTest {
     private lateinit var viewModel: DetailLeagueViewModel
 
     private val leagueId = 1
-    @Before
 
+    @Before
     fun setUp(){
         MockitoAnnotations.openMocks(this)
         viewModel = DetailLeagueViewModel(repositoryLeagues)
