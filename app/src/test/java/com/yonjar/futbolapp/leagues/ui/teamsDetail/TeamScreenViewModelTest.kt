@@ -69,8 +69,8 @@ class TeamScreenViewModelTest{
             advanceUntilIdle()
             val state = awaitItem()
             assertTrue(state is TeamsScreenState.Error)
-            val successState = state as TeamsScreenState.Error
-            assertEquals(successState.errorMessage, "Response was null")
+            val errorState = state as TeamsScreenState.Error
+            assertEquals(errorState.errorMessage, "Response was null")
         }
     }
 

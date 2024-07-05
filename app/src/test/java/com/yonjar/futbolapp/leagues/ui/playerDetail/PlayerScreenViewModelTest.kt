@@ -65,8 +65,8 @@ class PlayerScreenViewModelTest{
             advanceUntilIdle()
             val state = awaitItem()
             assertTrue(state is PlayerState.Error)
-            val successState = state as PlayerState.Error
-            assertEquals(successState.errorMessage, "Response was null")
+            val errorState = state as PlayerState.Error
+            assertEquals(errorState.errorMessage, "Response was null")
         }
     }
 
@@ -84,8 +84,8 @@ class PlayerScreenViewModelTest{
             advanceUntilIdle()
             val state = awaitItem()
             assertTrue(state is PlayerState.Error)
-            val successState = state as PlayerState.Error
-            assertEquals(successState.errorMessage, "Error: Simulated error")
+            val errorState = state as PlayerState.Error
+            assertEquals(errorState.errorMessage, "Error: Simulated error")
         }
     }
 }
