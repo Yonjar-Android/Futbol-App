@@ -1,7 +1,5 @@
 package com.yonjar.futbolapp.leagues.ui.playerDetail.navPlayerScreen.navPlayerStats
 
-import android.content.Context
-import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -1,6 +1,5 @@
 package com.yonjar.futbolapp.leagues.ui.leagueDetail
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yonjar.futbolapp.leagues.data.repositories.RepositoryLeagues
