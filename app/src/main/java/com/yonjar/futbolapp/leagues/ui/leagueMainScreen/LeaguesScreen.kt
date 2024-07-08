@@ -31,6 +31,8 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.yonjar.futbolapp.R
 import com.yonjar.futbolapp.leagues.domain.models.leagueModels.LeagueModel
+import com.yonjar.futbolapp.leagues.ui.common.ErrorFun
+import com.yonjar.futbolapp.leagues.ui.common.LoadingFun
 
 @Composable
 
@@ -51,9 +53,7 @@ fun MyListTest(leaguesViewModel: LeaguesViewModel, navController: NavHostControl
         contentAlignment = Alignment.Center
     ) {
         when (val currentState = state.value) {
-            is LeaguesState.Loading -> {
-                CircularProgressIndicator()
-            }
+            is LeaguesState.Loading -> LoadingFun()
             is LeaguesState.Success -> {
                 LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
                     items(currentState.leagues!!) { league ->
@@ -61,9 +61,7 @@ fun MyListTest(leaguesViewModel: LeaguesViewModel, navController: NavHostControl
                     }
                 }
             }
-            is LeaguesState.Error -> {
-                Toast.makeText(context, currentState.errorMessage, Toast.LENGTH_SHORT).show()
-            }
+            is LeaguesState.Error -> ErrorFun(error = currentState.errorMessage, context = context)
         }
     }
 

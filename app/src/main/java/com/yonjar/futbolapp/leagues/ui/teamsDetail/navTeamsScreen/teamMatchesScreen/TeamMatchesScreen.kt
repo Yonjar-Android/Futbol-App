@@ -24,17 +24,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
-import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.matchesInfoScreen.LoadingFun
+import com.yonjar.futbolapp.leagues.ui.common.ErrorFun
+import com.yonjar.futbolapp.leagues.ui.common.LoadingFun
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.matchesInfoScreen.MatchItem
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.matchesInfoScreen.MatchesTabs
 import kotlinx.coroutines.launch
@@ -91,7 +88,7 @@ fun TeamMatchesScreen(
                     }
                 }
                 when (val currentState = state.value) {
-                    is TeamMatchesState.Error -> ErrorFun(currentState, context)
+                    is TeamMatchesState.Error -> ErrorFun(currentState.errorMessage, context)
                     TeamMatchesState.Loading -> LoadingFun()
                     is TeamMatchesState.Success -> SuccessFun(currentState, pagerState)
                 }
@@ -127,9 +124,4 @@ fun SuccessFun(currentState: TeamMatchesState.Success, pagerState: PagerState) {
             }
         }
     }
-}
-
-@Composable
-fun ErrorFun(state: TeamMatchesState.Error, context: Context) {
-    Toast.makeText(context, state.errorMessage, Toast.LENGTH_SHORT).show()
 }

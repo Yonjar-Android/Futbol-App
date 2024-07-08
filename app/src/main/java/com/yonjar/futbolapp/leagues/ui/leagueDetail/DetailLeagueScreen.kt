@@ -42,6 +42,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.yonjar.futbolapp.R
+import com.yonjar.futbolapp.leagues.ui.common.ErrorFun
+import com.yonjar.futbolapp.leagues.ui.common.LoadingFun
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.LeagueInfoScreen
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.PlayOffInfoScreen
 import com.yonjar.futbolapp.leagues.ui.leagueDetail.navLeagueScreen.matchesInfoScreen.MatchesInfoScreen
@@ -78,7 +80,7 @@ fun DetailLeagueScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 when (val currentState = state.value) {
-                    is DetailLeagueState.Error -> ErrorFun(currentState, context)
+                    is DetailLeagueState.Error -> ErrorFun(error = currentState.errorMessage, context)
                     DetailLeagueState.Loading -> LoadingFun()
                     is DetailLeagueState.Success -> SuccessFun(currentState, navController, matchesViewModel)
                 }
@@ -112,17 +114,6 @@ fun SuccessFun(
         MyLeagueScaffold(state = state, navController = navController, matchesViewModel= matchesViewModel)
     }
 }
-
-@Composable
-fun LoadingFun() {
-    CircularProgressIndicator()
-}
-
-@Composable
-fun ErrorFun(error: DetailLeagueState.Error, context: Context) {
-    Toast.makeText(context, error.errorMessage, Toast.LENGTH_SHORT).show()
-}
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

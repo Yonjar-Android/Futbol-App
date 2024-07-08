@@ -36,6 +36,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.yonjar.futbolapp.R
+import com.yonjar.futbolapp.leagues.ui.common.ErrorFun
+import com.yonjar.futbolapp.leagues.ui.common.LoadingFun
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.InfoTeamScreen
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.teamMatchesScreen.TeamMatchesScreen
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.TeamPlayersScreen
@@ -73,7 +75,7 @@ fun TeamsScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 when (val currentState = state.value) {
-                    is TeamsScreenState.Error -> ErrorFun(currentState, context)
+                    is TeamsScreenState.Error -> ErrorFun(currentState.errorMessage, context)
                     TeamsScreenState.Loading -> LoadingFun()
                     is TeamsScreenState.Success -> SuccessFun(currentState, navController, teamMatchesViewModel)
                 }
@@ -89,16 +91,6 @@ fun SuccessFun(
     teamMatchesViewModel: TeamMatchesViewModel
 ) {
     SimpleScaffold(state, navController, teamMatchesViewModel)
-}
-
-@Composable
-fun LoadingFun() {
-    CircularProgressIndicator()
-}
-
-@Composable
-fun ErrorFun(error: TeamsScreenState.Error, context: Context) {
-    Toast.makeText(context, error.errorMessage, Toast.LENGTH_SHORT).show()
 }
 
 @Composable

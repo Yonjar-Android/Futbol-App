@@ -44,6 +44,8 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.yonjar.futbolapp.R
+import com.yonjar.futbolapp.leagues.ui.common.ErrorFun
+import com.yonjar.futbolapp.leagues.ui.common.LoadingFun
 import com.yonjar.futbolapp.leagues.ui.playerDetail.navPlayerScreen.NavPlayerInfoScreen
 import com.yonjar.futbolapp.leagues.ui.playerDetail.navPlayerScreen.navPlayerStats.NavPlayerStatsScreen
 import com.yonjar.futbolapp.leagues.ui.playerDetail.navPlayerScreen.navPlayerStats.NavPlayerStatsViewModel
@@ -76,7 +78,7 @@ fun PlayerScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 when (val currentState = state.value) {
-                    is PlayerState.Error -> ErrorFun(currentState, context)
+                    is PlayerState.Error -> ErrorFun(currentState.errorMessage, context)
                     PlayerState.Loading -> LoadingFun()
                     is PlayerState.Success -> SuccessFun(
                         currentState,
@@ -123,16 +125,6 @@ fun SuccessFun(
             navHostController = navHostController
         )
     }
-}
-
-@Composable
-fun LoadingFun() {
-    CircularProgressIndicator()
-}
-
-@Composable
-fun ErrorFun(currentState: PlayerState.Error, context: Context) {
-    Toast.makeText(context, currentState.errorMessage, Toast.LENGTH_SHORT).show()
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

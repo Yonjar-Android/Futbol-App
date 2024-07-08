@@ -38,6 +38,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.yonjar.futbolapp.leagues.domain.models.MatchModel
+import com.yonjar.futbolapp.leagues.ui.common.ErrorFun
+import com.yonjar.futbolapp.leagues.ui.common.LoadingFun
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -90,7 +92,10 @@ fun MatchesInfoScreen(
                 }
 
                 when (val currentState = state.value) {
-                    is MatchesState.Error -> ErrorFun(currentState, context)
+                    is MatchesState.Error -> ErrorFun(
+                        error = currentState.errorMessage,
+                        context = context
+                    )
                     MatchesState.Loading -> LoadingFun()
                     is MatchesState.Success -> SuccessFun(currentState, pagerState)
                 }
@@ -131,21 +136,6 @@ fun SuccessFun(
         }
     }
 
-}
-
-@Composable
-fun LoadingFun() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator()
-    }
-}
-
-@Composable
-fun ErrorFun(currentState: MatchesState.Error, context: Context) {
-    Toast.makeText(context, currentState.errorMessage, Toast.LENGTH_SHORT).show()
 }
 
 @Composable

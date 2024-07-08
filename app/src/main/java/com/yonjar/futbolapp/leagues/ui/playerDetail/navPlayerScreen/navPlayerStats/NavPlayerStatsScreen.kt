@@ -19,7 +19,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.yonjar.futbolapp.R
-import com.yonjar.futbolapp.leagues.ui.playerDetail.LoadingFun
+import com.yonjar.futbolapp.leagues.ui.common.ErrorFun
+import com.yonjar.futbolapp.leagues.ui.common.LoadingFun
 import com.yonjar.futbolapp.leagues.ui.playerDetail.PlayerState
 import com.yonjar.futbolapp.leagues.ui.teamsDetail.navTeamsScreen.RowItem
 
@@ -48,7 +49,7 @@ fun NavPlayerStatsScreen(
         verticalArrangement = Arrangement.Center
     ) {
         when (val currentState = stateC.value) {
-            is NavPlayerStatsState.Error -> ErrorFun(currentState, context)
+            is NavPlayerStatsState.Error -> ErrorFun(currentState.errorMessage, context)
             NavPlayerStatsState.Loading -> LoadingFun()
             is NavPlayerStatsState.Success -> SuccessFun(currentState)
         }
@@ -89,9 +90,4 @@ fun SuccessFun(currentState: NavPlayerStatsState.Success) {
             }
         }
     }
-}
-
-@Composable
-fun ErrorFun(currentState: NavPlayerStatsState.Error, context: Context) {
-    Toast.makeText(context, currentState.errorMessage, Toast.LENGTH_SHORT).show()
 }
