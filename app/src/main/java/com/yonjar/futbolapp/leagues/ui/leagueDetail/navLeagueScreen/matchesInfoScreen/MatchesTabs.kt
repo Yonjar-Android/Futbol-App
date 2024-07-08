@@ -5,13 +5,17 @@ import androidx.compose.ui.res.stringResource
 import com.yonjar.futbolapp.R
 
 enum class MatchesTabs(
-    val text:String
+    val text:String,
+    val petition:String
 ) {
     NextMatches(
-        "NextMatches"
+        "NextMatches",
+        petition = "upcoming.participants",
+
     ),
     LastsMatches(
-        "LastMatches"
+        "LastMatches",
+        petition = "latest.participants;latest.scores;latest.events"
     );
     @Composable
     fun getText(): String {
