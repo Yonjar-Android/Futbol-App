@@ -86,8 +86,7 @@ fun ItemView(league: LeagueModel, navController: NavHostController) {
 
             AsyncImage(model = league.leagueImage, contentDescription = league.name,
                 modifier = Modifier
-                    .size(200.dp)
-                    .background(Color.LightGray))
+                    .size(200.dp))
         }
 
     }
