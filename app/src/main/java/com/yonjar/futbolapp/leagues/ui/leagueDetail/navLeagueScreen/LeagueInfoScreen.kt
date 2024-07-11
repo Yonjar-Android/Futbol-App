@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
@@ -57,7 +58,7 @@ fun TeamRow(teamStanding: StandingModel, navController: NavHostController) {
                 .size(40.dp)
                 .weight(1f)
         )
-        Text(teamStanding.participant.name ?: "", modifier = Modifier.weight(3f))
+        Text(teamStanding.participant.name ?: "", modifier = Modifier.weight(3f).align(alignment = Alignment.CenterVertically), fontWeight = FontWeight.SemiBold)
         Text(teamStanding.details.wins.toString(), modifier = Modifier.weight(1f))
         Text(teamStanding.details.draws.toString(), modifier = Modifier.weight(1f))
         Text(teamStanding.details.losses.toString(), modifier = Modifier.weight(1f))
@@ -76,7 +77,7 @@ fun TableStanding(){
         .padding(bottom = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text("Logo", modifier = Modifier.weight(1f), fontWeight = FontWeight.Bold)
+        Text("Logo", modifier = Modifier.weight(1f).padding(end = 4.dp), fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
         Text(stringResource(id = R.string.team_str), modifier = Modifier.weight(3f), fontWeight = FontWeight.Bold)
         Text("W", modifier = Modifier.weight(1f), fontWeight = FontWeight.Bold)
         Text("D", modifier = Modifier.weight(1f), fontWeight = FontWeight.Bold)
