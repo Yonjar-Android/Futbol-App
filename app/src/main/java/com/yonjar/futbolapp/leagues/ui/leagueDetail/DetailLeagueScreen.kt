@@ -28,8 +28,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,7 +62,7 @@ fun DetailLeagueScreen(
         mutableIntStateOf(0)
     }
 
-    if(leagueId != rememberNumber){
+    if (leagueId != rememberNumber) {
         LaunchedEffect(leagueId) {
             detailLeagueViewModel.chargeLeague(leagueId)
         }
@@ -77,9 +80,17 @@ fun DetailLeagueScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 when (val currentState = state.value) {
-                    is DetailLeagueState.Error -> ErrorFun(error = currentState.errorMessage, context)
+                    is DetailLeagueState.Error -> ErrorFun(
+                        error = currentState.errorMessage,
+                        context
+                    )
+
                     DetailLeagueState.Loading -> LoadingFun()
-                    is DetailLeagueState.Success -> SuccessFun(currentState, navController, matchesViewModel)
+                    is DetailLeagueState.Success -> SuccessFun(
+                        currentState,
+                        navController,
+                        matchesViewModel
+                    )
                 }
             }
         }
@@ -108,7 +119,11 @@ fun SuccessFun(
             modifier = Modifier.padding(bottom = 8.dp),
             color = Color.Black
         )
-        MyLeagueScaffold(state = state, navController = navController, matchesViewModel= matchesViewModel)
+        MyLeagueScaffold(
+            state = state,
+            navController = navController,
+            matchesViewModel = matchesViewModel
+        )
     }
 }
 
@@ -134,7 +149,11 @@ fun MyBottomTeamNavigation(navigationController: NavHostController) {
             index = 0
             navigationController.navigate("LeagueInfoScreen")
         }, icon = {
-            Icon(imageVector = Icons.Filled.Info, contentDescription = "Regular Season Screen")
+            Icon(
+                painter = painterResource(id = R.drawable.trophy_solid),
+                contentDescription = "Regular Season Screen",
+                modifier = Modifier.size(25.dp)
+            )
         }, label = { Text(text = stringResource(id = R.string.season_str)) })
 
 
@@ -142,15 +161,23 @@ fun MyBottomTeamNavigation(navigationController: NavHostController) {
             index = 1
             navigationController.navigate("PlayOffInfoScreen")
         }, icon = {
-            Icon(imageVector = Icons.Filled.Person, contentDescription = "Play-Offs Screen")
+            Icon(
+                painter = painterResource(id = R.drawable.medal_solid),
+                contentDescription = "Play-Offs Screen",
+                modifier = Modifier.size(25.dp)
+            )
         }, label = { Text(text = stringResource(id = R.string.playOffs_str)) })
 
         NavigationBarItem(selected = index == 2, onClick = {
             index = 2
             navigationController.navigate("MatchesInfoScreen")
         }, icon = {
-            Icon(imageVector = Icons.Filled.Face, contentDescription = "Matches of the League")
-        }, label = { Text(text = stringResource(id = R.string.matches_str))})
+            Icon(
+                painter = painterResource(id = R.drawable.futbol_solid),
+                contentDescription = "Matches of the League",
+                modifier = Modifier.size(25.dp)
+            )
+        }, label = { Text(text = stringResource(id = R.string.matches_str)) })
     }
 }
 
@@ -174,7 +201,7 @@ fun MyLeagueScaffold(
                         navController = navController
                     )
                 }
-                composable(route = "MatchesInfoScreen"){
+                composable(route = "MatchesInfoScreen") {
                     MatchesInfoScreen(matchesViewModel, state.league.id, navController)
                 }
             }

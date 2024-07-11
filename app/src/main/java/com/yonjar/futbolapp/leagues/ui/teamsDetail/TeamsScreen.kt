@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
@@ -27,7 +28,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -54,7 +57,7 @@ fun TeamsScreen(
         mutableIntStateOf(0)
     }
 
-    if(teamId != rememberTeam){
+    if (teamId != rememberTeam) {
         LaunchedEffect(teamId) {
             teamScreenViewModel.loadTeam(teamId)
         }
@@ -74,7 +77,11 @@ fun TeamsScreen(
                 when (val currentState = state.value) {
                     is TeamsScreenState.Error -> ErrorFun(currentState.errorMessage, context)
                     TeamsScreenState.Loading -> LoadingFun()
-                    is TeamsScreenState.Success -> SuccessFun(currentState, navController, teamMatchesViewModel)
+                    is TeamsScreenState.Success -> SuccessFun(
+                        currentState,
+                        navController,
+                        teamMatchesViewModel
+                    )
                 }
             }
         }
@@ -102,7 +109,11 @@ fun MyBottomTeamNavigation(navigationController: NavHostController) {
             index = 0
             navigationController.navigate("InfoTeamScreen")
         }, icon = {
-            Icon(imageVector = Icons.Filled.Info, contentDescription = "Team Info")
+            Icon(
+                painter = painterResource(id = R.drawable.circle_info_solid),
+                contentDescription = "Team Info",
+                modifier = Modifier.size(25.dp)
+            )
         }, label = { Text(text = stringResource(id = R.string.data_str)) })
 
 
@@ -110,14 +121,22 @@ fun MyBottomTeamNavigation(navigationController: NavHostController) {
             index = 1
             navigationController.navigate("TeamPlayersScreen")
         }, icon = {
-            Icon(imageVector = Icons.Filled.Person, contentDescription = "Players")
+            Icon(
+                painter = painterResource(id = R.drawable.people_group_solid),
+                contentDescription = "Players",
+                modifier = Modifier.size(25.dp)
+            )
         }, label = { Text(text = stringResource(id = R.string.squad_str)) })
 
         NavigationBarItem(selected = index == 2, onClick = {
             index = 2
             navigationController.navigate("TeamMatchesScreen")
         }, icon = {
-            Icon(imageVector = Icons.Filled.Star, contentDescription = "Matches")
+            Icon(
+                painter = painterResource(id = R.drawable.futbol_solid),
+                contentDescription = "Matches",
+                modifier = Modifier.size(25.dp)
+            )
         }, label = { Text(text = stringResource(id = R.string.matches_str)) })
     }
 }
@@ -125,11 +144,13 @@ fun MyBottomTeamNavigation(navigationController: NavHostController) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTopTeamAppBar(navController: NavHostController) {
-    TopAppBar(title = { Text(text = stringResource(id = R.string.teamInfo_str)) }, navigationIcon = {
-        IconButton(onClick = { navController.navigateUp() }) {
-            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-        }
-    })
+    TopAppBar(
+        title = { Text(text = stringResource(id = R.string.teamInfo_str)) },
+        navigationIcon = {
+            IconButton(onClick = { navController.navigateUp() }) {
+                Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+            }
+        })
 }
 
 @Composable
@@ -147,7 +168,13 @@ fun SimpleScaffold(
             ) {
                 composable(route = "InfoTeamScreen") { InfoTeamScreen(state, navController) }
                 composable(route = "TeamPlayersScreen") { TeamPlayersScreen(state, navController) }
-                composable(route = "TeamMatchesScreen") { TeamMatchesScreen(state.team.id, navController, teamMatchesViewModel) }
+                composable(route = "TeamMatchesScreen") {
+                    TeamMatchesScreen(
+                        state.team.id,
+                        navController,
+                        teamMatchesViewModel
+                    )
+                }
             }
 
         }, bottomBar = { MyBottomTeamNavigation(navigationController) })

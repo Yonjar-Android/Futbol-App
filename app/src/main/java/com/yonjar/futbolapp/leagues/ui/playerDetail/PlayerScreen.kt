@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -61,7 +62,7 @@ fun PlayerScreen(
     val context = LocalContext.current
 
     LaunchedEffect(playerId) {
-            playerScreenViewModel.getPlayerInformation(playerId)
+        playerScreenViewModel.getPlayerInformation(playerId)
     }
 
     Scaffold(
@@ -94,7 +95,7 @@ fun PlayerScreen(
 fun SuccessFun(
     currentState: PlayerState.Success,
     playerStatsViewModel: NavPlayerStatsViewModel,
-    currentSeasonId:Int,
+    currentSeasonId: Int,
     navHostController: NavHostController
 ) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -127,11 +128,13 @@ fun SuccessFun(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTopPlayerAppBar(navController: NavHostController) {
-    TopAppBar(title = { Text(text = stringResource(id = R.string.playerInfo_str)) }, navigationIcon = {
-        IconButton(onClick = { navController.navigateUp() }) {
-            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-        }
-    })
+    TopAppBar(
+        title = { Text(text = stringResource(id = R.string.playerInfo_str)) },
+        navigationIcon = {
+            IconButton(onClick = { navController.navigateUp() }) {
+                Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+            }
+        })
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -151,7 +154,7 @@ fun MyPlayerScaffold(
                 modifier = Modifier.padding(it)
             ) {
                 composable(route = "NavPlayerInfoScreen") {
-                    NavPlayerInfoScreen(currentState,navHostController)
+                    NavPlayerInfoScreen(currentState, navHostController)
                 }
                 composable(route = "NavPlayerStatsScreen") {
                     NavPlayerStatsScreen(
@@ -180,7 +183,10 @@ fun MyBottomPlayerNavigation(navigationController: NavHostController) {
             index = 0
             navigationController.navigate("NavPlayerInfoScreen")
         }, icon = {
-            Icon(imageVector = Icons.Filled.Info, contentDescription = "Player Information")
+            Icon(
+                painter = painterResource(id = R.drawable.circle_info_solid), contentDescription = "Player Information",
+                modifier = Modifier.size(25.dp)
+            )
         }, label = { Text(text = stringResource(id = R.string.data_str)) })
 
 
@@ -188,7 +194,8 @@ fun MyBottomPlayerNavigation(navigationController: NavHostController) {
             index = 1
             navigationController.navigate("NavPlayerStatsScreen")
         }, icon = {
-            Icon(imageVector = Icons.Filled.Person, contentDescription = "Player Statistics")
+            Icon(painter = painterResource(id = R.drawable.chart_simple_solid), contentDescription = "Player Statistics",
+                modifier = Modifier.size(25.dp))
         }, label = { Text(text = "Stats") })
     }
 }
